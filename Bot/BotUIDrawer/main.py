@@ -41,6 +41,17 @@ class Application:
     def set_text(self, text: str):
         self.listbox.insert('end', text)
 
+    def set_new_text(self, text: str):
+        self.clear_text()
+        self.set_text(text)
+
+    def clear_text(self):
+        self.listbox.delete(0, END)
+
+    def show_choose_variants(self, variants: list):
+        str_list = "/n".join(f"{index} " + variant for index, variant in enumerate(variants))
+        self.set_new_text(f"Выберите вариант\n{str_list}")
+
     def set_click_button(self, function):
         self.btn_search.bind('<Button-1>', function)
 
