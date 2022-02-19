@@ -2,7 +2,7 @@ from tkinter import *
 
 
 class Application:
-    def __init__(self):
+    def __init__(self, ):
         self.root = Tk()
         self.root.title('Секретарь')
         self.root.geometry('700x500')
@@ -25,7 +25,7 @@ class Application:
         Frame(self.root, width=10).pack(side=LEFT)  # Для отступа между полем ввода и кнопкой
 
         self.btn_search = Button(self.input_frame, text='Узнать', width=10)
-        self.btn_search.bind('<Button-1>', self.show_info)
+        #self.btn_search.bind('<Button-1>', self.show_info)
         self.btn_search.pack(side=LEFT)
 
         # Скролл фрагмента
@@ -35,17 +35,15 @@ class Application:
         self.listbox.pack(fill='both')
         self.scrollbar.config(command=self.listbox.yview)
 
+    def get_text_user_input(self):
+        return self.ent_name.get()
+
+    def set_text(self, text: str):
+        self.listbox.insert('end', text)
+
+    def set_click_button(self, function):
+        self.btn_search.bind('<Button-1>', function)
+
+    def run_app(self):
         # запуск приложения
         self.root.mainloop()
-
-    # вывод информации
-    def show_info(self, event):
-        # появляется после нажатия кнопки
-        # self.scrollbar = Scrollbar(self.info_frame)
-        # self.scrollbar.pack(side=RIGHT, fill=Y)
-        # self.listbox = Listbox(self.info_frame, yscrollcommand=self.scrollbar.set, font=15)
-        # self.listbox.pack(fill='both')
-        # self.scrollbar.config(command=self.listbox.yview)
-        txt = self.ent_name.get().lower()
-        if txt == 'адрес':
-            self.listbox.insert('end', 'ул.Ленина и тд и тп')
