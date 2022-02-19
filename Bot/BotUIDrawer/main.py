@@ -55,6 +55,10 @@ class Application:
     def set_click_button(self, function):
         self.btn_search.bind('<Button-1>', function)
 
+    def set_image(self, image_src: str):
+        # Замена картинки персонажа
+        pass
+
     def run_app(self):
         # запуск приложения
         self.root.mainloop()

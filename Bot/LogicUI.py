@@ -17,13 +17,16 @@ class LogicUI:
 
     def click_button_search(self, event):
         text = self.drawer.get_text_user_input()
+
         if text == "/start":
             variants = self.logic.get_variants_now_level()
             self.drawer.show_choose_variants(variants)
-        elif text.isalnum() or (self.now_choose_variants is not None and text in self.now_choose_variants):
-            pass
-        else:
-            self.drawer.set_text("Я не понял. Повторите.")
+            return
+
+        if text.isnumeric() and (self.now_choose_variants is not None and text in self.now_choose_variants):
+            return
+
+        self.drawer.set_text("Я не понял. Повторите.")
 
     def validateUserInput(self):
         pass
