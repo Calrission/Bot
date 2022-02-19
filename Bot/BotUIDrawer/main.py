@@ -49,6 +49,3 @@ class Application:
         txt = self.ent_name.get().lower()
         if txt == 'адрес':
             self.listbox.insert('end', 'ул.Ленина и тд и тп')
-
-
-Application()
