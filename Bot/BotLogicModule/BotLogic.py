@@ -1,4 +1,4 @@
-from BotLogicModule.ParseJSONData import ParseJSONData
+from .ParseJSONData import ParseJSONData
 
 """
 Класс логики бота. Служить для перемещения по дереву (json файлу). В self два параметра: data - словарь с объектами; 
@@ -17,7 +17,7 @@ class Logic:
         """
         @:return объект находящийся по этому пути (dict или str)
 
-        @:param path - лист index в json файле
+        @:param path - лист index в json файле (путь до объекта)
         """
         now_object = self.data
         for index in path:
@@ -37,7 +37,7 @@ class Logic:
 
     def choose_variant_now_level(self, name_variant: str) -> list | str:
         """
-        Перейди к этому объекту (изменив путь)
+        Перейди к этому объекту (изменив путь выбранного объекта)
 
         @:param name_variant - название объекта
 
@@ -47,9 +47,11 @@ class Logic:
         self.path_indexes_data.append(index_variant)
         return self.get_variants_now_level()
 
-    def back_level(self):
+    def back_level(self) -> list | str:
         """
-        Перейди к предпоследнему объекту в пути (изменив сам путь) и вернуть его подобъекты
+        Перейди к предпоследнему объекту в пути (изменив сам путь выбранного объекта)
+
+        @:return список всех подобъектов выбранного объекта (если dict) или его значение (если str)
         """
         del self.path_indexes_data[-1]
         return self.get_variants_now_level()

@@ -1,4 +1,4 @@
-from BotLogicModule.BotLogic import Logic
+from Bot.BotLogicModule.BotLogic import Logic
 
 logic = Logic()
 variants = logic.get_variants_now_level()
