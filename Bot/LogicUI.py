@@ -1,7 +1,8 @@
 from enum import Enum
 from BotLogicModule.BotLogic import Logic
 from BotUIDrawer.main import Application
-
+import pathlib
+from pathlib import Path
 
 class LogicUI:
     def __init__(self, logic: Logic, drawer: Application):
@@ -56,18 +57,18 @@ class LogicUI:
 
 
 class CharacterIMG(Enum):
-    WELCOME = "face2"
-    DEFAULT = "face1"
-    ANSWER = "face3"
-    THING = "face2"
-    QUITE = "face4"
-    ICON = "icon"
+    WELCOME = "face2.png"
+    DEFAULT = "face1.png"
+    ANSWER = "face3.png"
+    THING = "face2.png"
+    QUITE = "face4.png"
+    ICON = "icon.png"
+    ICON_ISO = "icon.ico"
 
     def __init__(self, path):
         self.path = path
-        self.format = ".png"
-        self.main_path = "media_files/"
+        self.main_path = "media_files"
 
     @property
     def src(self) -> str:
-        return self.main_path + self.path + self.format
+        return str(Path(pathlib.Path.cwd(), self.main_path, self.path))

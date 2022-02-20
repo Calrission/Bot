@@ -1,3 +1,5 @@
+import pathlib
+from pathlib import Path
 from tkinter import *
 
 
@@ -6,6 +8,7 @@ class Application:
         self.root = Tk()
         self.root.title('Секретарь')
         self.root.geometry('700x500')
+        self.root.wm_iconbitmap(bitmap=str(Path(pathlib.Path.cwd(), "media_files", "icon.ico")))
         self.root.resizable(width=False, height=False)
 
         # top frame
