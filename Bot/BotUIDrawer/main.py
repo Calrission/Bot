@@ -25,7 +25,6 @@ class Application:
         Frame(self.root, width=10).pack(side=LEFT)  # Для отступа между полем ввода и кнопкой
 
         self.btn_search = Button(self.input_frame, text='Узнать', width=10)
-        # self.btn_search.bind('<Button-1>', self.show_info)
         self.btn_search.pack(side=LEFT)
 
         # Scroll фрагмента

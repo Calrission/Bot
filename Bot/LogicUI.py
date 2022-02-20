@@ -32,6 +32,9 @@ class LogicUI:
             return
 
         if text == "/back" and len(self.logic.path_indexes_data) != 0:
+            variants = self.logic.back_level()
+            self.drawer.show_choose_variants(variants)
+            self.drawer.set_image(CharacterIMG.DEFAULT.src)
             return
 
         if text == "/help":
@@ -58,10 +61,13 @@ class CharacterIMG(Enum):
     ANSWER = "face3"
     THING = "face2"
     QUITE = "face4"
+    ICON = "icon"
 
     def __init__(self, path):
         self.path = path
+        self.format = ".png"
+        self.main_path = "media_files/"
 
     @property
     def src(self) -> str:
-        return "media_files/" + self.path
+        return self.main_path + self.path + self.format
