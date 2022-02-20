@@ -16,7 +16,7 @@ class Application:
         self.root.wm_iconbitmap(bitmap=str(Path(pathlib.Path.cwd(), "media_files", "icon.ico")))
         self.root.resizable(width=False, height=False)
 
-        self.canvas = Canvas(self.root, height=82, width=82)
+        self.canvas = Canvas(self.root, height=120, width=120)
         self.canvas.pack(side=LEFT, anchor=NW, padx=(15, 0), pady=(15, 0))
 
         # top frame
@@ -88,10 +88,10 @@ class Application:
         self.image_c = self.canvas.create_image(42, 42, anchor='center', image=self.photo)
 
     def set_image_gif(self, gif_src: str):
-        count_frame = 128
         # Замена картинки персонажа на gif
+        count_frame = 128
         self.set_image(gif_src)
-        frames = [PhotoImage(file=gif_src, format='gif -index %i' % i).subsample(2, 2) for i in range(count_frame)]
+        frames = [PhotoImage(file=gif_src, format='gif -index %i' % i).subsample(1, 1) for i in range(count_frame)]
         self.show_gif_animation = True
 
         def update(ind):
@@ -101,7 +101,7 @@ class Application:
                 ind = 0
             if self.show_gif_animation:
                 self.canvas.delete("all")
-                self.image_c = self.canvas.create_image(42, 42, anchor='center', image=frame)
+                self.image_c = self.canvas.create_image(50, 55, anchor='center', image=frame)
                 self.root.after(100, update, ind)
         self.root.after(0, update, 0)
 
