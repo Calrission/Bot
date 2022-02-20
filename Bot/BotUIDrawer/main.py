@@ -47,7 +47,7 @@ class Application:
 
     def set_text_output(self, text: str):
         self.txt_widget.configure(state='normal')  # для возобновления возможности изменения текста
-        self.txt_widget.insert('end', text)
+        self.txt_widget.insert('end', text+"\n")
         self.txt_widget.configure(state='disabled')  # для отмены возможности изменения текста
 
     def set_new_text_output(self, text: str):
@@ -61,7 +61,7 @@ class Application:
 
     def show_choose_variants(self, variants: list):
         str_list = "\n".join(f"{index + 1} " + variant for index, variant in enumerate(variants))
-        self.set_new_text_output(f"Выберите вариант:\n{str_list}")
+        self.set_new_text_output(f"Выберите вариант перехода по пирамиде:\n{str_list}")
 
     def show_object_variant(self, object_str: str):
         self.set_new_text_output(object_str)
