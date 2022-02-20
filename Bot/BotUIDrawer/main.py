@@ -25,10 +25,10 @@ class Application:
         Frame(self.root, width=10).pack(side=LEFT)  # Для отступа между полем ввода и кнопкой
 
         self.btn_search = Button(self.input_frame, text='Узнать', width=10)
-        #self.btn_search.bind('<Button-1>', self.show_info)
+        # self.btn_search.bind('<Button-1>', self.show_info)
         self.btn_search.pack(side=LEFT)
 
-        # Скролл фрагмента
+        # Scroll фрагмента
         self.scrollbar = Scrollbar(self.info_frame)
         self.scrollbar.pack(side=RIGHT, fill=Y)
         self.listbox = Listbox(self.info_frame, yscrollcommand=self.scrollbar.set, font=15)
@@ -38,19 +38,22 @@ class Application:
     def get_text_user_input(self):
         return self.ent_name.get()
 
-    def set_text(self, text: str):
+    def clear_text_user_input(self):
+        return self.ent_name.delete(0, END)
+
+    def set_text_output(self, text: str):
         self.listbox.insert('end', text)
 
-    def set_new_text(self, text: str):
-        self.clear_text()
-        self.set_text(text)
+    def set_new_text_output(self, text: str):
+        self.clear_text_output()
+        self.set_text_output(text)
 
-    def clear_text(self):
+    def clear_text_output(self):
         self.listbox.delete(0, END)
 
     def show_choose_variants(self, variants: list):
         str_list = "/n".join(f"{index} " + variant for index, variant in enumerate(variants))
-        self.set_new_text(f"Выберите вариант\n{str_list}")
+        self.set_new_text_output(f"Выберите вариант\n{str_list}")
 
     def set_click_button(self, function):
         self.btn_search.bind('<Button-1>', function)
