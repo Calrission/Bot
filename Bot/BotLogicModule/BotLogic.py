@@ -35,15 +35,15 @@ class Logic:
             now_object: str
             return now_object
 
-    def choose_variant_now_level(self, name_variant: str) -> list | str:
+    def choose_object_now_level(self, name_object: str) -> list | str:
         """
         Перейди к этому объекту (изменив путь выбранного объекта)
 
-        @:param name_variant - название объекта
+        @:param name_object - название объекта
 
         @:return список всех подобъектов выбранного объекта (если dict) или его значение (если str)
         """
-        index_variant = list(self.get_object_from_path(self.path_indexes_data).keys()).index(name_variant)
+        index_variant = list(self.get_object_from_path(self.path_indexes_data).keys()).index(name_object)
         self.path_indexes_data.append(index_variant)
         return self.get_variants_now_level()
 
@@ -51,7 +51,7 @@ class Logic:
         """
         Перейди к предпоследнему объекту в пути (изменив сам путь выбранного объекта)
 
-        @:return список всех подобъектов выбранного объекта (если dict) или его значение (если str)
+        :return: список всех подобъектов выбранного объекта (если dict) или его значение (если str)
         """
         del self.path_indexes_data[-1]
         return self.get_variants_now_level()
