@@ -16,11 +16,11 @@ class LogicUI:
 
     def welcome(self):
         self.drawer.set_new_text_output(
-            "Здравствуйте, я бот секретарь. Я помогу вам узнать про школу №15. Давайте же начнем. "
-            "Введите /start\n")
+            "Здравствуйте, я бот секретарь. Я помогу вам узнать про школу №15 с УИОП г. Электросталь. Давайте же "
+            "начнем.\nВведите /start для того чтобы начать.\nВведите /help для получения помощи.")
         self.drawer.set_image(CharacterIMG.WELCOME.src)
 
-    def click_button_search(self, event):
+    def click_button_search(self, _):
         text = self.drawer.get_text_user_input()
         self.drawer.clear_text_user_input()
 
@@ -31,7 +31,7 @@ class LogicUI:
             self.drawer.set_image(CharacterIMG.DEFAULT.src)
             return
 
-        if (text.isnumeric() or text in self.variants) and type(self.variants) == list:
+        if (text.isnumeric() or text in self.variants) and type(self.variants) == list and len(self.variants) > 0:
             if text.isnumeric() and (0 >= int(text) or int(text) > len(self.variants)):
                 self.drawer.set_text_output("Такого пункта в списке вариантов нет !")
                 self.drawer.set_image(CharacterIMG.QUITE.src)
@@ -55,6 +55,13 @@ class LogicUI:
             return
 
         if text == "/help":
+            help_text = "Список команд:\n" \
+                        "/start - возвращает в начало пирамиды\n" \
+                        "/variants - показывает варианты перехода по пирамиде\n" \
+                        "/back - возвращает назад по пирамиде\n" \
+                        "/clear - очищает поле вывода\n" \
+                        "/welcome - показывает приветственный текст"
+            self.drawer.set_new_text_output(help_text)
             self.drawer.set_image_gif(CharacterIMG.ANIMATION_FACE.src)
             return
 
@@ -72,7 +79,7 @@ class LogicUI:
                 self.drawer.show_choose_variants(self.variants)
                 self.drawer.set_image(CharacterIMG.DEFAULT.src)
             elif type(self.variants) == str:
-                self.drawer.set_text_output("Извините, но для этого объекта больше нет вариантов.")
+                self.drawer.set_text_output("Извините, но для текущей позиции нету вариантов переходов по пирамиде.")
                 self.drawer.set_image(CharacterIMG.QUITE.src)
             return
 
