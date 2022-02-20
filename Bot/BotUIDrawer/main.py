@@ -17,7 +17,6 @@ class Application:
         self.root.resizable(width=False, height=False)
 
         self.canvas = Canvas(self.root, height=82, width=82)
-        # self.canvas.config(bg="white")
         self.canvas.pack(side=LEFT, anchor=NW, padx=(15, 0), pady=(15, 0))
 
         # top frame
@@ -92,7 +91,7 @@ class Application:
         count_frame = 128
         # Замена картинки персонажа на gif
         self.set_image(gif_src)
-        frames = [PhotoImage(file=gif_src, format='gif -index %i' % i) for i in range(count_frame)]
+        frames = [PhotoImage(file=gif_src, format='gif -index %i' % i).subsample(2, 2) for i in range(count_frame)]
         self.show_gif_animation = True
 
         def update(ind):
