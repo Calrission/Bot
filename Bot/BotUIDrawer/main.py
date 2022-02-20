@@ -10,17 +10,16 @@ class Application:
         self.root = Tk()
         self.root.title('Бот секретарь школы №15 С УИОП г. Электросталь')
         self.root.geometry('700x500')
-        self.root.minsize(700, 300)
         self.root.wm_iconbitmap(bitmap=str(Path(pathlib.Path.cwd(), "media_files", "icon.ico")))
-        self.root.resizable(width=False, height=True)
+        self.root.resizable(width=False, height=False)
 
         # top frame
-        self.input_frame = Frame(self.root, height=100, pady=25, padx=5)
-        self.input_frame.pack(fill=X)
+        self.info_frame = Frame(self.root, height=400, padx=15)
+        self.info_frame.pack(fill=X, pady=(15, 5))
 
         # bottom frame
-        self.info_frame = Frame(self.root, height=400, padx=15)
-        self.info_frame.pack(fill=X)
+        self.input_frame = Frame(self.root,height=100, pady=10, padx=5)
+        self.input_frame.pack(fill=X)
 
         self.lbl_name = Label(self.input_frame, text='Что вы хотите узнать', font=12)
         self.lbl_name.pack(side=LEFT)
@@ -50,7 +49,7 @@ class Application:
 
     def set_text_output(self, text: str):
         self.txt_widget.configure(state='normal')  # для возобновления возможности изменения текста
-        self.txt_widget.insert('end', text+"\n")
+        self.txt_widget.insert('end', text + "\n")
         self.txt_widget.configure(state='disabled')  # для отмены возможности изменения текста
 
     def set_new_text_output(self, text: str):
