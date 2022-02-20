@@ -7,19 +7,16 @@ from PIL import Image, ImageTk
 
 class Application:
     def __init__(self):
+        self.photo = None
+        self.image_c = None
         self.root = Tk()
         self.root.title('Бот секретарь школы №15 С УИОП г. Электросталь')
         self.root.geometry('700x500')
         self.root.wm_iconbitmap(bitmap=str(Path(pathlib.Path.cwd(), "media_files", "icon.ico")))
         self.root.resizable(width=False, height=False)
 
-        # картинка
-        self.image = Image.open(str(Path(pathlib.Path.cwd(), "media_files", "face1.png")))
-        self.image = self.image.resize((82,82), Image.ANTIALIAS)
-        self.photo = ImageTk.PhotoImage(self.image)
         self.canvas = Canvas(self.root, height=82, width=82)
-        self.c_image = self.canvas.create_image(0, 0, anchor='nw', image=self.photo)
-        self.canvas.pack(side=LEFT, anchor=NW)
+        self.canvas.pack(side=LEFT, anchor=NW, padx=(15, 0), pady=(15, 0))
 
         # top frame
         self.info_frame = Frame(self.root, height=400, padx=15)
@@ -82,7 +79,10 @@ class Application:
 
     def set_image(self, image_src: str):
         # Замена картинки персонажа
-        pass
+        image = Image.open(image_src)
+        image = image.resize((80, 80), Image.ANTIALIAS)
+        self.photo = ImageTk.PhotoImage(image)
+        self.image_c = self.canvas.create_image(42, 42, anchor='center', image=self.photo)
 
     def set_image_gif(self, gif_src: str):
         # Замена картинки персонажа на gif

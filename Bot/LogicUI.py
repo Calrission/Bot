@@ -10,15 +10,14 @@ class LogicUI:
         self.logic = logic
         self.drawer = drawer
         self.variants = []
-
-        self.drawer.set_click_button(self.click_button_search)
         self.welcome()
+        self.drawer.set_click_button(self.click_button_search)
 
     def welcome(self):
+        self.drawer.set_image(CharacterIMG.WELCOME.src)
         self.drawer.set_new_text_output(
             "Здравствуйте, я бот секретарь. Я помогу вам узнать про школу №15 с УИОП г. Электросталь. Давайте же "
             "начнем.\nВведите /start для того чтобы начать.\nВведите /help для получения помощи.")
-        self.drawer.set_image(CharacterIMG.WELCOME.src)
 
     def click_button_search(self, _):
         text = self.drawer.get_text_user_input()
@@ -42,6 +41,7 @@ class LogicUI:
                 self.drawer.show_choose_variants(self.variants)
             elif type(self.variants) == str:
                 self.drawer.show_object_variant(self.variants)
+            self.drawer.set_image(CharacterIMG.DEFAULT.src)
             return
 
         if text == "/back":
