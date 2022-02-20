@@ -20,6 +20,7 @@ class Application:
         self.lbl_name.pack(side=LEFT)
 
         self.ent_name = Entry(self.input_frame, font=15, width=50)
+        self.ent_name.focus()  # поле ввода сразу становится активным
         self.ent_name.pack(side=LEFT)
 
         Frame(self.root, width=10).pack(side=LEFT)  # Для отступа между полем ввода и кнопкой
@@ -31,9 +32,10 @@ class Application:
         # Скролл фрагмента
         self.scrollbar = Scrollbar(self.info_frame)
         self.scrollbar.pack(side=RIGHT, fill=Y)
-        self.listbox = Listbox(self.info_frame, yscrollcommand=self.scrollbar.set, font=15)
-        self.listbox.pack(fill='both')
-        self.scrollbar.config(command=self.listbox.yview)
+        self.txt_widget = Text(self.info_frame, yscrollcommand=self.scrollbar.set, font=15)
+        self.txt_widget.configure(state='disabled')  # для отмены возможности изменения текста
+        self.txt_widget.pack(fill='both')
+        self.scrollbar.config(command=self.txt_widget.yview)
 
         # запуск приложения
         self.root.mainloop()
@@ -46,9 +48,20 @@ class Application:
         # self.listbox = Listbox(self.info_frame, yscrollcommand=self.scrollbar.set, font=15)
         # self.listbox.pack(fill='both')
         # self.scrollbar.config(command=self.listbox.yview)
+
+        self.txt_widget.configure(state='normal')  # для возобновления возможности изменения текста
+        self.txt_widget.delete('1.0', END)  # очищает поле полностью
         txt = self.ent_name.get().lower()
         if txt == 'адрес':
-            self.listbox.insert('end', 'ул.Ленина и тд и тп')
+            self.txt_widget.insert('end', 'ул.Ленина и\nтд и тп')
+
+        if txt == 'номер':
+            for i in range(1000):
+                self.txt_widget.insert('end', f'{i}\n')  # чтобы переносить строку
+
+        self.ent_name.delete(0, END)  # очищает поле ввода запроса
+
+        self.txt_widget.configure(state='disabled')  # для отмены возможности изменения текста
 
 
 Application()
