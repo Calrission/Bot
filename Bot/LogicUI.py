@@ -44,7 +44,11 @@ class LogicUI:
                 self.drawer.show_object_variant(self.variants)
             return
 
-        if text == "/back" and len(self.logic.path_indexes_data) != 0:
+        if text == "/back":
+            if len(self.logic.path_indexes_data) == 0:
+                self.drawer.set_text_output("Назад пути нет !")
+                self.drawer.set_image(CharacterIMG.QUITE.src)
+                return
             self.variants = self.logic.back_level()
             self.drawer.show_choose_variants(self.variants)
             self.drawer.set_image(CharacterIMG.DEFAULT.src)
