@@ -17,7 +17,7 @@ class LogicUI:
     def welcome(self):
         self.drawer.set_new_text_output(
             "Здравствуйте, я бот секретарь. Я помогу вам узнать про школу №15. Давайте же начнем. "
-            "Введите /start")
+            "Введите /start\n")
         self.drawer.set_image(CharacterIMG.WELCOME.src)
 
     def click_button_search(self, event):

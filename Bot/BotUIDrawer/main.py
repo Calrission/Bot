@@ -34,7 +34,7 @@ class Application:
         # Scroll фрагмента
         self.scrollbar = Scrollbar(self.info_frame)
         self.scrollbar.pack(side=RIGHT, fill=Y)
-        self.txt_widget = Text(self.info_frame, yscrollcommand=self.scrollbar.set, font=15)
+        self.txt_widget = Text(self.info_frame, yscrollcommand=self.scrollbar.set, font=15, wrap=WORD)
         self.txt_widget.configure(state='disabled')  # для отмены возможности изменения текста
         self.txt_widget.pack(fill='both')
         self.scrollbar.config(command=self.txt_widget.yview)
@@ -46,18 +46,22 @@ class Application:
         return self.ent_name.delete(0, END)
 
     def set_text_output(self, text: str):
+        self.txt_widget.configure(state='normal')  # для возобновления возможности изменения текста
         self.txt_widget.insert('end', text)
+        self.txt_widget.configure(state='disabled')  # для отмены возможности изменения текста
 
     def set_new_text_output(self, text: str):
         self.clear_text_output()
         self.set_text_output(text)
 
     def clear_text_output(self):
-        self.txt_widget.delete(0, END)
+        self.txt_widget.configure(state='normal')  # для возобновления возможности изменения текста
+        self.txt_widget.delete(1.0, END)
+        self.txt_widget.configure(state='disabled')  # для отмены возможности изменения текста
 
     def show_choose_variants(self, variants: list):
-        str_list = "/n".join(f"{index + 1} " + variant for index, variant in enumerate(variants))
-        self.set_new_text_output(f"Выберите вариант\n{str_list}")
+        str_list = "\n".join(f"{index + 1} " + variant for index, variant in enumerate(variants))
+        self.set_new_text_output(f"Выберите вариант:\n{str_list}")
 
     def show_object_variant(self, object_str: str):
         self.set_new_text_output(object_str)
