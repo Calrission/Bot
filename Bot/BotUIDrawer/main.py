@@ -23,6 +23,7 @@ class Application:
         self.lbl_name.pack(side=LEFT)
 
         self.ent_name = Entry(self.input_frame, font=15, width=50)
+        self.ent_name.focus()  # поле ввода сразу становится активным
         self.ent_name.pack(side=LEFT)
 
         Frame(self.root, width=10).pack(side=LEFT)  # Для отступа между полем ввода и кнопкой
@@ -33,9 +34,10 @@ class Application:
         # Scroll фрагмента
         self.scrollbar = Scrollbar(self.info_frame)
         self.scrollbar.pack(side=RIGHT, fill=Y)
-        self.listbox = Listbox(self.info_frame, yscrollcommand=self.scrollbar.set, font=15)
-        self.listbox.pack(fill='both')
-        self.scrollbar.config(command=self.listbox.yview)
+        self.txt_widget = Text(self.info_frame, yscrollcommand=self.scrollbar.set, font=15)
+        self.txt_widget.configure(state='disabled')  # для отмены возможности изменения текста
+        self.txt_widget.pack(fill='both')
+        self.scrollbar.config(command=self.txt_widget.yview)
 
     def get_text_user_input(self):
         return self.ent_name.get()
@@ -44,14 +46,14 @@ class Application:
         return self.ent_name.delete(0, END)
 
     def set_text_output(self, text: str):
-        self.listbox.insert('end', text)
+        self.txt_widget.insert('end', text)
 
     def set_new_text_output(self, text: str):
         self.clear_text_output()
         self.set_text_output(text)
 
     def clear_text_output(self):
-        self.listbox.delete(0, END)
+        self.txt_widget.delete(0, END)
 
     def show_choose_variants(self, variants: list):
         str_list = "/n".join(f"{index + 1} " + variant for index, variant in enumerate(variants))
