@@ -1,20 +1,32 @@
 from tkinter import *
 
+from PIL import Image, ImageTk
+
 
 class Application:
     def __init__(self):
+        self.lbl_right_side = None
         self.root = Tk()
         self.root.title('Секретарь')
         self.root.geometry('700x500')
         self.root.resizable(width=False, height=False)
 
+        # добавление Canvas
+        # self.canvas = Canvas(self.root, width=699, height=499)
+        # self.canvas.pack()
+
+        # картинка не работает, не видит путь к ней
+        # self.pillImage = Image.open('../../media_files/first_face.png')
+        # self.image = ImageTk.PhotoImage(self.pillImage)
+        # self.image_sprite = self.canvas.create_image(100, 100, image=self.image)
+
         # top frame
-        self.input_frame = Frame(self.root, height=100, pady=25, padx=5)
-        self.input_frame.pack(fill=X)
+        self.info_frame = Frame(self.root, height=400, padx=15)
+        self.info_frame.pack(fill=X, pady=(15, 5))
 
         # bottom frame
-        self.info_frame = Frame(self.root, height=400, padx=15)
-        self.info_frame.pack(fill=X)
+        self.input_frame = Frame(self.root, height=100, pady=10, padx=5)
+        self.input_frame.pack(fill=X)
 
         self.lbl_name = Label(self.input_frame, text='Что вы хотите узнать', font=12)
         self.lbl_name.pack(side=LEFT)
@@ -42,12 +54,6 @@ class Application:
 
     # вывод информации
     def show_info(self, event):
-        # появляется после нажатия кнопки
-        # self.scrollbar = Scrollbar(self.info_frame)
-        # self.scrollbar.pack(side=RIGHT, fill=Y)
-        # self.listbox = Listbox(self.info_frame, yscrollcommand=self.scrollbar.set, font=15)
-        # self.listbox.pack(fill='both')
-        # self.scrollbar.config(command=self.listbox.yview)
 
         self.txt_widget.configure(state='normal')  # для возобновления возможности изменения текста
         self.txt_widget.delete('1.0', END)  # очищает поле полностью
