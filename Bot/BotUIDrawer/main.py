@@ -9,6 +9,7 @@ class Application:
     def __init__(self):
         self.photo = None
         self.image_c = None
+        self.show_gif_animation = False
         self.root = Tk()
         self.root.title('Бот секретарь школы №15 С УИОП г. Электросталь')
         self.root.geometry('700x500')
@@ -80,9 +81,11 @@ class Application:
 
     def set_image(self, image_src: str):
         # Замена картинки персонажа
+        self.show_gif_animation = False
         image = Image.open(image_src)
         image = image.resize((80, 80), Image.ANTIALIAS)
         self.photo = ImageTk.PhotoImage(image)
+        self.canvas.delete("all")
         self.image_c = self.canvas.create_image(42, 42, anchor='center', image=self.photo)
 
     def set_image_gif(self, gif_src: str):
@@ -90,14 +93,17 @@ class Application:
         # Замена картинки персонажа на gif
         self.set_image(gif_src)
         frames = [PhotoImage(file=gif_src, format='gif -index %i' % i) for i in range(count_frame)]
+        self.show_gif_animation = True
 
         def update(ind):
             frame = frames[ind]
             ind += 5
             if ind >= count_frame:
                 ind = 0
-            self.image_c = self.canvas.create_image(42, 42, anchor='center', image=frame)
-            self.root.after(100, update, ind)
+            if self.show_gif_animation:
+                self.canvas.delete("all")
+                self.image_c = self.canvas.create_image(42, 42, anchor='center', image=frame)
+                self.root.after(100, update, ind)
         self.root.after(0, update, 0)
 
     def run_app(self):
