@@ -25,13 +25,18 @@ class LogicUI:
         self.drawer.clear_text_user_input()
 
         if text == "/start":
+            self.logic.path_indexes_data = []
             self.variants = self.logic.get_variants_now_level()
             self.drawer.show_choose_variants(self.variants)
             self.drawer.set_image(CharacterIMG.DEFAULT.src)
             return
 
-        if text.isnumeric() or text in self.variants:
-            name_variant = self.variants[int(text)] if text.isnumeric() else text
+        if (text.isnumeric() or text in self.variants) and type(self.variants) == list:
+            if text.isnumeric() and (0 >= int(text) or int(text) > len(self.variants)):
+                self.drawer.set_text_output("Такого пункта в списке вариантов нет !")
+                self.drawer.set_image(CharacterIMG.QUITE.src)
+                return
+            name_variant = self.variants[int(text) - 1] if text.isnumeric() else text
             self.variants = self.logic.choose_object_now_level(name_variant)
             if type(self.variants) == list:
                 self.drawer.show_choose_variants(self.variants)
@@ -55,6 +60,16 @@ class LogicUI:
 
         if text == "/clear":
             self.drawer.clear_text_output()
+            return
+
+        if text == "/variants":
+            self.variants = self.logic.get_variants_now_level()
+            if type(self.variants) == list:
+                self.drawer.show_choose_variants(self.variants)
+                self.drawer.set_image(CharacterIMG.DEFAULT.src)
+            elif type(self.variants) == str:
+                self.drawer.set_text_output("Извините, но для этого объекта больше нет вариантов.")
+                self.drawer.set_image(CharacterIMG.QUITE.src)
             return
 
         self.drawer.set_text_output("Я не понял. Повторите.")

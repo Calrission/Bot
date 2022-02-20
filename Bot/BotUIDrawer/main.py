@@ -54,7 +54,7 @@ class Application:
         self.listbox.delete(0, END)
 
     def show_choose_variants(self, variants: list):
-        str_list = "/n".join(f"{index} " + variant for index, variant in enumerate(variants))
+        str_list = "/n".join(f"{index + 1} " + variant for index, variant in enumerate(variants))
         self.set_new_text_output(f"Выберите вариант\n{str_list}")
 
     def show_object_variant(self, object_str: str):
