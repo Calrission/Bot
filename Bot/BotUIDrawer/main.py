@@ -6,7 +6,7 @@ from tkinter import *
 class Application:
     def __init__(self):
         self.root = Tk()
-        self.root.title('Секретарь')
+        self.root.title('Секретарь школы №15 С УИОП г. Электросталь')
         self.root.geometry('700x500')
         self.root.wm_iconbitmap(bitmap=str(Path(pathlib.Path.cwd(), "media_files", "icon.ico")))
         self.root.resizable(width=False, height=False)
@@ -57,6 +57,9 @@ class Application:
         str_list = "/n".join(f"{index} " + variant for index, variant in enumerate(variants))
         self.set_new_text_output(f"Выберите вариант\n{str_list}")
 
+    def show_object_variant(self, object_str: str):
+        self.set_new_text_output(object_str)
+
     def set_click_button(self, function):
         self.btn_search.bind('<Button-1>', function)
         self.ent_name.bind("<Return>", function)
@@ -65,7 +68,7 @@ class Application:
         # Замена картинки персонажа
         pass
 
-    def set_image_gif(self, image_src: str):
+    def set_image_gif(self, gif_src: str):
         # Замена картинки персонажа на gif
         pass
 

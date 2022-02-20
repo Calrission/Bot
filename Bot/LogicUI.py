@@ -9,7 +9,7 @@ class LogicUI:
     def __init__(self, logic: Logic, drawer: Application):
         self.logic = logic
         self.drawer = drawer
-        self.now_choose_variants = None
+        self.variants = []
 
         self.drawer.set_click_button(self.click_button_search)
         self.welcome()
@@ -25,22 +25,27 @@ class LogicUI:
         self.drawer.clear_text_user_input()
 
         if text == "/start":
-            variants = self.logic.get_variants_now_level()
-            self.drawer.show_choose_variants(variants)
+            self.variants = self.logic.get_variants_now_level()
+            self.drawer.show_choose_variants(self.variants)
             self.drawer.set_image(CharacterIMG.DEFAULT.src)
             return
 
-        if text.isnumeric() and (self.now_choose_variants is not None and text in self.now_choose_variants):
+        if text.isnumeric() or text in self.variants:
+            name_variant = self.variants[int(text)] if text.isnumeric() else text
+            self.variants = self.logic.choose_object_now_level(name_variant)
+            if type(self.variants) == list:
+                self.drawer.show_choose_variants(self.variants)
+            elif type(self.variants) == str:
+                self.drawer.show_object_variant(self.variants)
             return
 
         if text == "/back" and len(self.logic.path_indexes_data) != 0:
-            variants = self.logic.back_level()
-            self.drawer.show_choose_variants(variants)
+            self.variants = self.logic.back_level()
+            self.drawer.show_choose_variants(self.variants)
             self.drawer.set_image(CharacterIMG.DEFAULT.src)
             return
 
         if text == "/help":
-            variants = ["/start", "/back", "/welcome", "/clear"]
             self.drawer.set_image_gif(CharacterIMG.ANIMATION_FACE.src)
             return
 
