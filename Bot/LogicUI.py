@@ -20,7 +20,7 @@ class LogicUI:
             "начнем.\nВведите /start для того чтобы начать.\nВведите /help для получения помощи.")
         self.drawer.set_image(CharacterIMG.WELCOME.src)
 
-    def click_button_search(self, event):
+    def click_button_search(self, _):
         text = self.drawer.get_text_user_input()
         self.drawer.clear_text_user_input()
 
@@ -31,7 +31,7 @@ class LogicUI:
             self.drawer.set_image(CharacterIMG.DEFAULT.src)
             return
 
-        if (text.isnumeric() or text in self.variants) and type(self.variants) == list:
+        if (text.isnumeric() or text in self.variants) and type(self.variants) == list and len(self.variants) > 0:
             if text.isnumeric() and (0 >= int(text) or int(text) > len(self.variants)):
                 self.drawer.set_text_output("Такого пункта в списке вариантов нет !")
                 self.drawer.set_image(CharacterIMG.QUITE.src)

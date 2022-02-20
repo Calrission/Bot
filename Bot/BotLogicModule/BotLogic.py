@@ -15,9 +15,9 @@ class Logic:
 
     def get_object_from_path(self, path: list) -> dict | str:
         """
-        @:return объект находящийся по этому пути (dict или str)
+        :return: объект находящийся по этому пути (dict или str)
 
-        @:param path - лист index в json файле (путь до объекта)
+        :param: path - лист index в json файле (путь до объекта)
         """
         now_object = self.data
         for index in path:
@@ -26,7 +26,7 @@ class Logic:
 
     def get_variants_now_level(self) -> list | str:
         """
-        @:return список всех подобъектов текущего объекта (если dict) или его значение (если str)
+        :return: список всех подобъектов текущего объекта (если dict) или его значение (если str)
         """
         now_object = self.get_object_from_path(self.path_indexes_data)
         if isinstance(now_object, dict):
@@ -39,9 +39,9 @@ class Logic:
         """
         Перейди к этому объекту (изменив путь выбранного объекта)
 
-        @:param name_object - название объекта
+        :param: name_object - название объекта
 
-        @:return список всех подобъектов выбранного объекта (если dict) или его значение (если str)
+        :return: список всех подобъектов выбранного объекта (если dict) или его значение (если str)
         """
         index_variant = list(self.get_object_from_path(self.path_indexes_data).keys()).index(name_object)
         self.path_indexes_data.append(index_variant)
