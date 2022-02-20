@@ -4,6 +4,7 @@ from BotUIDrawer.main import Application
 import pathlib
 from pathlib import Path
 
+
 class LogicUI:
     def __init__(self, logic: Logic, drawer: Application):
         self.logic = logic
@@ -39,6 +40,8 @@ class LogicUI:
             return
 
         if text == "/help":
+            variants = ["/start", "/back", "/welcome", "/clear"]
+            self.drawer.set_image_gif(CharacterIMG.ANIMATION_FACE.src)
             return
 
         if text == "/welcome":
@@ -64,11 +67,12 @@ class CharacterIMG(Enum):
     QUITE = "face4.png"
     ICON = "icon.png"
     ICON_ISO = "icon.ico"
+    ANIMATION_FACE = "animation_face.gif"
 
-    def __init__(self, path):
-        self.path = path
+    def __init__(self, filename):
+        self.filename = filename
         self.main_path = "media_files"
 
     @property
     def src(self) -> str:
-        return str(Path(pathlib.Path.cwd(), self.main_path, self.path))
+        return str(Path(pathlib.Path.cwd(), self.main_path, self.filename))

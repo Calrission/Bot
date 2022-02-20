@@ -65,6 +65,10 @@ class Application:
         # Замена картинки персонажа
         pass
 
+    def set_image_gif(self, image_src: str):
+        # Замена картинки персонажа на gif
+        pass
+
     def run_app(self):
         # запуск приложения
         self.root.mainloop()
