@@ -13,12 +13,20 @@ class Application:
         self.root.wm_iconbitmap(bitmap=str(Path(pathlib.Path.cwd(), "media_files", "icon.ico")))
         self.root.resizable(width=False, height=False)
 
+        # картинка
+        self.image = Image.open(str(Path(pathlib.Path.cwd(), "media_files", "face1.png")))
+        self.image = self.image.resize((82,82), Image.ANTIALIAS)
+        self.photo = ImageTk.PhotoImage(self.image)
+        self.canvas = Canvas(self.root, height=82, width=82)
+        self.c_image = self.canvas.create_image(0, 0, anchor='nw', image=self.photo)
+        self.canvas.pack(side=LEFT, anchor=NW)
+
         # top frame
         self.info_frame = Frame(self.root, height=400, padx=15)
         self.info_frame.pack(fill=X, pady=(15, 5))
 
         # bottom frame
-        self.input_frame = Frame(self.root,height=100, pady=10, padx=5)
+        self.input_frame = Frame(self.root, height=100, pady=10, padx=5)
         self.input_frame.pack(fill=X)
 
         self.lbl_name = Label(self.input_frame, text='Что вы хотите узнать', font=12)
