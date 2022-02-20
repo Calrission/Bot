@@ -6,10 +6,11 @@ from tkinter import *
 class Application:
     def __init__(self):
         self.root = Tk()
-        self.root.title('Секретарь школы №15 С УИОП г. Электросталь')
+        self.root.title('Бот секретарь школы №15 С УИОП г. Электросталь')
         self.root.geometry('700x500')
+        self.root.minsize(700, 300)
         self.root.wm_iconbitmap(bitmap=str(Path(pathlib.Path.cwd(), "media_files", "icon.ico")))
-        self.root.resizable(width=False, height=False)
+        self.root.resizable(width=False, height=True)
 
         # top frame
         self.input_frame = Frame(self.root, height=100, pady=25, padx=5)
