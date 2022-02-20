@@ -41,6 +41,10 @@ class LogicUI:
             self.welcome()
             return
 
+        if text == "/clear":
+            self.drawer.clear_text_output()
+            return
+
         self.drawer.set_text_output("Я не понял. Повторите.")
         self.drawer.set_image(CharacterIMG.QUITE.src)
 

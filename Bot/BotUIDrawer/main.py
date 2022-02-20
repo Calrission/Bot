@@ -2,7 +2,7 @@ from tkinter import *
 
 
 class Application:
-    def __init__(self, ):
+    def __init__(self):
         self.root = Tk()
         self.root.title('Секретарь')
         self.root.geometry('700x500')
@@ -57,6 +57,7 @@ class Application:
 
     def set_click_button(self, function):
         self.btn_search.bind('<Button-1>', function)
+        self.ent_name.bind("<Return>", function)
 
     def set_image(self, image_src: str):
         # Замена картинки персонажа
