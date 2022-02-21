@@ -15,26 +15,27 @@ class Application:
         self.root.geometry('700x500')
         self.root.wm_iconbitmap(bitmap=str(Path(pathlib.Path.cwd(), "media_files", "icon.ico")))
         self.root.resizable(width=False, height=False)
+        # self.root.wm_attributes('-transparentcolor', '#ab23ff')
+
+        self.label = Label(self.root, width=100, height=100, bg="red")  # задний frame
+        self.label.pack()
 
         # top frame
-        self.info_frame = Frame(self.root, height=400, padx=0)
+        self.info_frame = Frame(self.label, height=400, padx=0, bg="")
         self.info_frame.pack(fill=X, pady=(5, 5))
 
         # bottom frame
-        self.input_frame = Frame(self.root, height=100, pady=10, padx=5)
+        self.input_frame = Frame(self.label, height=100, pady=10, padx=5, bg="")
         self.input_frame.pack(fill=X)
 
-        self.canvas = Canvas(self.info_frame, height=120, width=100)      # Не меняй параметры
+        self.canvas = Canvas(self.info_frame, height=120, width=100)
         self.canvas.pack(side=LEFT, anchor=NW, padx=(5, 0), pady=(0, 0))
 
-        self.lbl_name = Label(self.input_frame, text='Что вы хотите узнать', font=12)
-        self.lbl_name.pack(side=LEFT)
-
-        self.ent_name = Entry(self.input_frame, font=15, width=50)
+        self.ent_name = Entry(self.input_frame, font=15, width=68)
         self.ent_name.focus()  # поле ввода сразу становится активным
         self.ent_name.pack(side=LEFT)
 
-        Frame(self.root, width=10).pack(side=LEFT)  # Для отступа между полем ввода и кнопкой
+        Frame(self.label, width=10).pack(side=LEFT)  # Для отступа между полем ввода и кнопкой
 
         self.btn_search = Button(self.input_frame, text='Узнать', width=10)
         self.btn_search.pack(side=LEFT)
@@ -89,6 +90,22 @@ class Application:
 
     def set_image_gif(self, gif_src: str):
         # Замена картинки персонажа на gif
+        count_frame = 128
+        frames = [PhotoImage(file=gif_src, format='gif -index %i' % i) for i in range(count_frame)]
+        self.show_gif_animation = True
+
+        def update(ind):
+            frame = frames[ind]
+            ind += 5
+            if ind >= count_frame:
+                ind = 0
+            if self.show_gif_animation:
+                self.canvas.delete("all")
+                self.image_c = self.canvas.create_image(50, 55, anchor='center', image=frame)
+                self.root.after(100, update, ind)
+        self.root.after(0, update, 0)
+
+    def set_background_gif(self, gif_src: str):
         count_frame = 128
         frames = [PhotoImage(file=gif_src, format='gif -index %i' % i) for i in range(count_frame)]
         self.show_gif_animation = True
