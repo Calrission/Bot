@@ -18,7 +18,7 @@ class LogicUI:
     def welcome(self, **kwargs):
         self.drawer.set_image(CharacterIMG.WELCOME.src)
         self.drawer.set_new_text_output(
-            "Здравствуйте, я бот секретарь. Я помогу вам узнать про школу №15 с УИОП г. Электросталь. Давайте же "
+            "Здравствуйте, я бот-секретарь. Я помогу вам узнать о школе №15 с УИОП г. Электросталь. Давайте же "
             "начнем.\nВведите /start для того чтобы начать.\nВведите /help для получения помощи.")
         self.drawer.new_buttons(self.commands)
 

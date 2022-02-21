@@ -121,7 +121,7 @@ class Application:
 
         def update(ind):
             frame = frames[ind]
-            ind += 5
+            ind += 8
             if ind >= count_frame:
                 ind = 0
             if self.show_gif_animation:

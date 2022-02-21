@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2aebd73a-151f-4c91-b875-63325413a3ff" name="Changes" comment="Update data.json">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bot/BotUIDrawer/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bot/BotUIDrawer/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bot/LogicUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bot/LogicUI.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="25KLvhNva4gSSdNeYlTt6Tzrv0o" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Bot/media_files" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Python Project\Bot\Bot\media_files" />
+      <recent name="C:\Python Project\Bot\media_files" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Python Project\Bot\Bot\media_files" />
+      <recent name="C:\Python Project\Bot\Bot" />
+      <recent name="C:\Python Project\Bot\media_files" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.run">
+    <configuration name="demoBotLogic" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Bot" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Bot" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Bot/demoBotLogic.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="run" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Bot" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Bot" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Bot/run.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.run" />
+        <item itemvalue="Python.demoBotLogic" />
+        <item itemvalue="Python.run" />
+        <item itemvalue="Python.demoBotLogic" />
+        <item itemvalue="Python.run" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2aebd73a-151f-4c91-b875-63325413a3ff" name="Changes" comment="" />
+      <created>1645271065941</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1645271065941</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Update structure and venv">
+      <created>1645271637526</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1645271637526</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Update structure">
+      <created>1645301785676</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1645301785676</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Connect Application to LogicUI.py">
+      <created>1645302150673</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1645302150673</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add LogicUI.py to work tkinter">
+      <created>1645304346594</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1645304346594</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add /start command and welcome text">
+      <created>1645307417209</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1645307417209</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Update LogicUI">
+      <created>1645308048032</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1645308048032</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Add CharacterIMG">
+      <created>1645343071245</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1645343071245</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fix CharacterIMG">
+      <created>1645343615763</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1645343615764</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Add new face">
+      <created>1645344427112</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1645344427112</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add bind press enter to input_user">
+      <created>1645344882916</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1645344882916</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Update data.json">
+      <created>1645347181054</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1645347181054</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add icon window">
+      <created>1645348252906</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1645348252906</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Add animation_face.gif">
+      <created>1645368751250</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1645368751250</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Add UI moving on json tree">
+      <created>1645373569503</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1645373569503</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Update validator for user input">
+      <created>1645374473923</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1645374473923</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Update data.json">
+      <created>1645375146424</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1645375146425</updated>
+    </task>
+    <task id="LOCAL-00017" summary="refactor after merge">
+      <created>1645378345620</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1645378345620</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Update help command">
+      <created>1645381490879</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1645381490879</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Update window size politic">
+      <created>1645382223536</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1645382223536</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Small update">
+      <created>1645387755542</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1645387755542</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Fix image">
+      <created>1645394341853</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1645394341853</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Add sheet show gif">
+      <created>1645395638822</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1645395638822</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Fix gif animation">
+      <created>1645396168764</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1645396168764</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Small git">
+      <created>1645397270144</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1645397270144</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Good gif animation">
+      <created>1645397772678</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1645397772679</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Update compact elements">
+      <created>1645430363615</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1645430363615</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Add background window">
+      <created>1645433399680</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1645433399680</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Revert window commit">
+      <created>1645437696635</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1645437696635</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Update horizontal scroll">
+      <created>1645441018341</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1645441018341</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Add new methods for buttons">
+      <created>1645441551738</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1645441551738</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Update showing buttons">
+      <created>1645454719298</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1645454719298</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Fix buttons">
+      <created>1645456173037</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1645456173037</updated>
+    </task>
+    <task id="LOCAL-00033" summary="User face3">
+      <created>1645457174220</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1645457174220</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Fix scrollbar">
+      <created>1645457463782</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1645457463782</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Fix click_button_search">
+      <created>1645457539075</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1645457539076</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Update data.json">
+      <created>1645458716818</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1645458716818</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add bind press enter to input_user" />
+    <MESSAGE value="Add icon window" />
+    <MESSAGE value="Add animation_face.gif" />
+    <MESSAGE value="Add UI moving on json tree" />
+    <MESSAGE value="Update validator for user input" />
+    <MESSAGE value="refactor after merge" />
+    <MESSAGE value="Update help command" />
+    <MESSAGE value="Update window size politic" />
+    <MESSAGE value="Small update" />
+    <MESSAGE value="Fix image" />
+    <MESSAGE value="Add sheet show gif" />
+    <MESSAGE value="Fix gif animation" />
+    <MESSAGE value="Small git" />
+    <MESSAGE value="Good gif animation" />
+    <MESSAGE value="Update compact elements" />
+    <MESSAGE value="Add background window" />
+    <MESSAGE value="Revert window commit" />
+    <MESSAGE value="Update horizontal scroll" />
+    <MESSAGE value="Add new methods for buttons" />
+    <MESSAGE value="Update showing buttons" />
+    <MESSAGE value="Fix buttons" />
+    <MESSAGE value="User face3" />
+    <MESSAGE value="Fix scrollbar" />
+    <MESSAGE value="Fix click_button_search" />
+    <MESSAGE value="Update data.json" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update data.json" />
+  </component>
+</project>
