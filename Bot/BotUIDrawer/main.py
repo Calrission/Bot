@@ -16,16 +16,16 @@ class Application:
         self.root.wm_iconbitmap(bitmap=str(Path(pathlib.Path.cwd(), "media_files", "icon.ico")))
         self.root.resizable(width=False, height=False)
 
-        self.canvas = Canvas(self.root, height=120, width=120)
-        self.canvas.pack(side=LEFT, anchor=NW, padx=(15, 0), pady=(15, 0))
-
         # top frame
-        self.info_frame = Frame(self.root, height=400, padx=15)
-        self.info_frame.pack(fill=X, pady=(15, 5))
+        self.info_frame = Frame(self.root, height=400, padx=0)
+        self.info_frame.pack(fill=X, pady=(5, 5))
 
         # bottom frame
         self.input_frame = Frame(self.root, height=100, pady=10, padx=5)
         self.input_frame.pack(fill=X)
+
+        self.canvas = Canvas(self.info_frame, height=120, width=100)      # Не меняй параметры
+        self.canvas.pack(side=LEFT, anchor=NW, padx=(5, 0), pady=(0, 0))
 
         self.lbl_name = Label(self.input_frame, text='Что вы хотите узнать', font=12)
         self.lbl_name.pack(side=LEFT)
@@ -82,16 +82,15 @@ class Application:
         # Замена картинки персонажа
         self.show_gif_animation = False
         image = Image.open(image_src)
-        image = image.resize((80, 80), Image.ANTIALIAS)
+        image = image.resize((90, 90), Image.ANTIALIAS)
         self.photo = ImageTk.PhotoImage(image)
         self.canvas.delete("all")
-        self.image_c = self.canvas.create_image(42, 42, anchor='center', image=self.photo)
+        self.image_c = self.canvas.create_image(50, 55, anchor='center', image=self.photo)
 
     def set_image_gif(self, gif_src: str):
         # Замена картинки персонажа на gif
         count_frame = 128
-        self.set_image(gif_src)
-        frames = [PhotoImage(file=gif_src, format='gif -index %i' % i).subsample(1, 1) for i in range(count_frame)]
+        frames = [PhotoImage(file=gif_src, format='gif -index %i' % i) for i in range(count_frame)]
         self.show_gif_animation = True
 
         def update(ind):
