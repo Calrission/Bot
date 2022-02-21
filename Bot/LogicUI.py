@@ -7,6 +7,7 @@ from pathlib import Path
 
 class LogicUI:
     def __init__(self, logic: Logic, drawer: Application):
+        self.commands = {"/start": self.start, "/welcome": self.welcome, "/back": self.back, "/help": self.help}
         self.logic = logic
         self.drawer = drawer
         self.variants = []
@@ -18,6 +19,32 @@ class LogicUI:
         self.drawer.set_new_text_output(
             "Здравствуйте, я бот секретарь. Я помогу вам узнать про школу №15 с УИОП г. Электросталь. Давайте же "
             "начнем.\nВведите /start для того чтобы начать.\nВведите /help для получения помощи.")
+        self.drawer.new_buttons(self.commands)
+
+    def back(self):
+        if len(self.logic.path_indexes_data) == 0:
+            self.drawer.set_text_output("Назад пути нет !")
+            self.drawer.set_image(CharacterIMG.QUITE.src)
+            return
+        self.variants = self.logic.back_level()
+        self.drawer.show_choose_variants(self.variants)
+        self.drawer.set_image(CharacterIMG.DEFAULT.src)
+
+    def help(self):
+        help_text = "Список команд:\n" \
+                    "/start - возвращает в начало пирамиды\n" \
+                    "/variants - показывает варианты перехода по пирамиде\n" \
+                    "/back - возвращает назад по пирамиде\n" \
+                    "/clear - очищает поле вывода\n" \
+                    "/welcome - показывает приветственный текст"
+        self.drawer.set_new_text_output(help_text)
+        self.drawer.set_image_gif(CharacterIMG.ANIMATION_FACE.src)
+
+    def start(self):
+        self.logic.path_indexes_data = []
+        self.variants = self.logic.get_variants_now_level()
+        self.drawer.show_choose_variants(self.variants)
+        self.drawer.set_image(CharacterIMG.DEFAULT.src)
 
     def click_button_search(self, _):
         text = self.drawer.get_text_user_input()
@@ -25,10 +52,7 @@ class LogicUI:
         self.drawer.clear_text_user_input()
 
         if text == "/start":
-            self.logic.path_indexes_data = []
-            self.variants = self.logic.get_variants_now_level()
-            self.drawer.show_choose_variants(self.variants)
-            self.drawer.set_image(CharacterIMG.DEFAULT.src)
+            self.start()
             return
 
         if (text.isnumeric() or text in self.variants) and type(self.variants) == list and len(self.variants) > 0:
@@ -46,24 +70,11 @@ class LogicUI:
             return
 
         if text == "/back":
-            if len(self.logic.path_indexes_data) == 0:
-                self.drawer.set_text_output("Назад пути нет !")
-                self.drawer.set_image(CharacterIMG.QUITE.src)
-                return
-            self.variants = self.logic.back_level()
-            self.drawer.show_choose_variants(self.variants)
-            self.drawer.set_image(CharacterIMG.DEFAULT.src)
+            self.back()
             return
 
         if text == "/help":
-            help_text = "Список команд:\n" \
-                        "/start - возвращает в начало пирамиды\n" \
-                        "/variants - показывает варианты перехода по пирамиде\n" \
-                        "/back - возвращает назад по пирамиде\n" \
-                        "/clear - очищает поле вывода\n" \
-                        "/welcome - показывает приветственный текст"
-            self.drawer.set_new_text_output(help_text)
-            self.drawer.set_image_gif(CharacterIMG.ANIMATION_FACE.src)
+            self.help()
             return
 
         if text == "/welcome":
