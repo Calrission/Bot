@@ -64,8 +64,10 @@ class LogicUI:
             self.variants = self.logic.choose_object_now_level(name_variant)
             if type(self.variants) == list:
                 self.drawer.show_choose_variants(self.variants)
+                # self.drawer.new_buttons(self.commands)
             elif type(self.variants) == str:
                 self.drawer.show_object_variant(self.variants)
+                self.drawer.new_buttons(self.commands)
             self.drawer.set_image(CharacterIMG.DEFAULT.src)
             return
 

@@ -53,14 +53,20 @@ class Application:
         return self.ent_name.get()
 
     def new_buttons(self, buttons: dict):
+        self.clear_buttons()
+        self.add_buttons(buttons)
+
+    def add_buttons(self, buttons: dict):
         self.hor_scroll_frame.configure(state=NORMAL)
-        [i.destroy() for i in self.hor_scroll_frame.winfo_children()]
         for text in buttons:
             frame_button = Frame(self.hor_scroll_frame, padx=5,)
             button = Button(frame_button, text=text, command=buttons[text])
             button.pack()
             self.hor_scroll_frame.window_create(END, window=frame_button)
         self.hor_scroll_frame.configure(state=DISABLED)
+
+    def clear_buttons(self):
+        [i.destroy() for i in self.hor_scroll_frame.winfo_children()]
 
     def clear_text_user_input(self):
         return self.ent_name.delete(0, END)
