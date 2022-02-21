@@ -57,7 +57,7 @@ class Application:
         self.hor_scrollbar = Scrollbar(self.hor_scroll_frame)
         self.hor_txt_widget = Text(self.hor_scroll_frame, height=1, font=12, wrap=NONE)
         self.hor_txt_widget.configure(xscrollcommand=self.hor_scrollbar.set)
-        self.hor_txt_widget.configure(state='normal')  # для отмены возможности изменения текста
+        self.hor_txt_widget.configure(state='disabled')  # для отмены возможности изменения текста
         self.hor_txt_widget.pack(fill='both')
         self.hor_scrollbar.config(command=self.hor_txt_widget.xview, orient=HORIZONTAL)
         self.hor_scrollbar.pack(side=BOTTOM, fill=X)
