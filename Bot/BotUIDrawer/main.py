@@ -64,11 +64,11 @@ class Application:
         self.clear_buttons()
         self.add_buttons(buttons)
 
-    def add_buttons(self, buttons: dict):
+    def add_buttons(self, buttons: dict[str: classmethod]):
         self.hor_scroll_frame.configure(state=NORMAL)
         for text in buttons:
             frame_button = Frame(self.hor_scroll_frame, padx=5, )
-            button = Button(frame_button, text=text, command=buttons[text])
+            button = Button(frame_button, text=text, command=(lambda txt=text: buttons[txt](name_variant=txt)))
             button.pack()
             self.hor_scroll_frame.window_create(END, window=frame_button)
         self.hor_scroll_frame.configure(state=DISABLED)
