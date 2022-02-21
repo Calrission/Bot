@@ -10,12 +10,13 @@ class Application:
         self.photo = None
         self.image_c = None
         self.show_gif_animation = False
-        self.root = Tk()
+        self.root = Tk()Доб
         self.root.title('Бот секретарь школы №15 С УИОП г. Электросталь')
         self.root.geometry('700x600')
         self.root.wm_iconbitmap(bitmap=str(Path(pathlib.Path.cwd(), "media_files", "icon.ico")))
         self.root.resizable(width=False, height=False)
-        self.root.configure(bg='#0E1621')  # увет фона окна
+        self.root.configure(bg='#0E1621')  # цвет фона окна
+        # self.root.overrideredirect(True) # Убирает рамки windows
 
         # top frame
         self.info_frame = Frame(self.root, height=400, padx=0, bg='#0E1621')
