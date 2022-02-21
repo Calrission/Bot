@@ -17,11 +17,11 @@ class Application:
         self.root.resizable(width=False, height=False)
 
         # top frame
-        self.info_frame = Frame(self.root, height=400, padx=0, bg="")
+        self.info_frame = Frame(self.root, height=400, padx=0)
         self.info_frame.pack(fill=X, pady=(5, 5))
 
         # input  frame
-        self.input_frame = Frame(self.root, height=100, pady=10, padx=5, bg="")
+        self.input_frame = Frame(self.root, height=100, pady=10, padx=5)
         self.input_frame.pack(fill=X)
 
         # horizontal scroll frame

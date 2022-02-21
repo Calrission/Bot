@@ -7,7 +7,8 @@ from pathlib import Path
 
 class LogicUI:
     def __init__(self, logic: Logic, drawer: Application):
-        self.commands = {"/start": self.start, "/welcome": self.welcome, "/back": self.back, "/help": self.help}
+        self.commands = {"/start": self.start, "/welcome": self.welcome, "/back": self.back, "/help": self.help,
+                         "/variants": self.variants_}
         self.logic = logic
         self.drawer = drawer
         self.variants = []
@@ -28,6 +29,7 @@ class LogicUI:
             return
         self.variants = self.logic.back_level()
         self.drawer.show_choose_variants(self.variants)
+        self.add_variants_and_command_to_button(self.variants)
         self.drawer.set_image(CharacterIMG.DEFAULT.src)
 
     def help(self):
@@ -43,12 +45,38 @@ class LogicUI:
     def start(self):
         self.logic.path_indexes_data = []
         self.variants = self.logic.get_variants_now_level()
+        self.add_variants_and_command_to_button(self.variants)
         self.drawer.show_choose_variants(self.variants)
         self.drawer.set_image(CharacterIMG.DEFAULT.src)
 
-    def click_button_search(self, _):
-        text = self.drawer.get_text_user_input()
+    def variants_ (self):
+        self.variants = self.logic.get_variants_now_level()
+        if type(self.variants) == list:
+            self.drawer.show_choose_variants(self.variants)
+            self.drawer.set_image(CharacterIMG.DEFAULT.src)
+            self.add_variants_and_command_to_button(self.variants)
+        elif type(self.variants) == str:
+            self.drawer.set_text_output("Извините, но для текущей позиции нету вариантов переходов по пирамиде.")
+            self.drawer.set_image(CharacterIMG.QUITE.src)
 
+    def parse_now_variants_to_buttons_dict(self) -> dict:
+        return {i: lambda event, name_variant=i: self.select_variant(event, name_variant) for i in self.variants}
+
+    def add_variants_and_command_to_button(self, variants):
+        self.drawer.new_buttons(self.parse_now_variants_to_buttons_dict())
+        self.drawer.add_buttons(self.commands)
+
+    def select_variant(self, event, name_variant: str):
+        self.variants = self.logic.choose_object_now_level(name_variant)
+        if type(self.variants) == list:
+            self.drawer.show_choose_variants(self.variants)
+            self.add_variants_and_command_to_button(self.variants)
+        elif type(self.variants) == str:
+            self.drawer.show_object_variant(self.variants)
+            self.drawer.new_buttons(self.commands)
+
+    def click_button_search(self, event):
+        text = self.drawer.get_text_user_input()
         self.drawer.clear_text_user_input()
 
         if text == "/start":
@@ -61,13 +89,7 @@ class LogicUI:
                 self.drawer.set_image(CharacterIMG.QUITE.src)
                 return
             name_variant = self.variants[int(text) - 1] if text.isnumeric() else text
-            self.variants = self.logic.choose_object_now_level(name_variant)
-            if type(self.variants) == list:
-                self.drawer.show_choose_variants(self.variants)
-                # self.drawer.new_buttons(self.commands)
-            elif type(self.variants) == str:
-                self.drawer.show_object_variant(self.variants)
-                self.drawer.new_buttons(self.commands)
+            self.select_variant(None, name_variant)
             self.drawer.set_image(CharacterIMG.DEFAULT.src)
             return
 
@@ -88,13 +110,7 @@ class LogicUI:
             return
 
         if text == "/variants":
-            self.variants = self.logic.get_variants_now_level()
-            if type(self.variants) == list:
-                self.drawer.show_choose_variants(self.variants)
-                self.drawer.set_image(CharacterIMG.DEFAULT.src)
-            elif type(self.variants) == str:
-                self.drawer.set_text_output("Извините, но для текущей позиции нету вариантов переходов по пирамиде.")
-                self.drawer.set_image(CharacterIMG.QUITE.src)
+            self.variants_()
             return
 
         self.drawer.set_text_output("Я не понял. Повторите.")
