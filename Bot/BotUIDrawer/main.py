@@ -12,7 +12,7 @@ class Application:
         self.show_gif_animation = False
         self.root = Tk()
         self.root.title('Бот секретарь школы №15 С УИОП г. Электросталь')
-        self.root.geometry('700x550')
+        self.root.geometry('700x535')
         self.root.wm_iconbitmap(bitmap=str(Path(pathlib.Path.cwd(), "media_files", "icon.ico")))
         self.root.resizable(width=False, height=False)
 
@@ -25,9 +25,7 @@ class Application:
         self.input_frame.pack(fill=X)
 
         # horizontal scroll frame
-        self.hor_scroll_frame_ = Frame(self.root)  # фрейм
-        self.hor_scroll_frame_.pack(fill=X)
-        self.hor_scroll_frame = Text(self.hor_scroll_frame_, wrap=NONE, height=2)  # текстовое поле
+        self.hor_scroll_frame = Text(self.root, wrap=NONE)
         self.hor_scroll_frame.pack(pady=(5, 5), padx=(5, 5), fill=X)
 
         # Картинка для персонажа
@@ -50,12 +48,6 @@ class Application:
         self.txt_widget.configure(state='disabled')  # для отмены возможности изменения текста
         self.txt_widget.pack(fill='both')
         self.scrollbar.config(command=self.txt_widget.yview)
-
-        # horizontal scroll
-        self.hor_scrollbar = Scrollbar(self.hor_scroll_frame_)
-        self.hor_scrollbar.config(command=self.hor_scroll_frame.xview, orient=HORIZONTAL)
-        self.hor_scrollbar.pack(side=BOTTOM, fill=X)
-        self.hor_scroll_frame.configure(xscrollcommand=self.hor_scrollbar.set)
 
     def get_text_user_input(self):
         return self.ent_name.get()

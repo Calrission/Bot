@@ -49,7 +49,7 @@ class LogicUI:
         self.drawer.show_choose_variants(self.variants)
         self.drawer.set_image(CharacterIMG.DEFAULT.src)
 
-    def variants_ (self, **kwargs):
+    def variants_(self, **kwargs):
         self.variants = self.logic.get_variants_now_level()
         if type(self.variants) == list:
             self.drawer.show_choose_variants(self.variants)
@@ -74,8 +74,9 @@ class LogicUI:
         elif type(self.variants) == str:
             self.drawer.show_object_variant(self.variants)
             self.drawer.new_buttons(self.commands)
+            self.drawer.set_image(CharacterIMG.ANSWER.src)
 
-    def click_button_search(self, event):
+    def click_button_search(self):
         text = self.drawer.get_text_user_input().strip()
         self.drawer.clear_text_user_input()
 
@@ -89,7 +90,7 @@ class LogicUI:
                 self.drawer.set_image(CharacterIMG.QUITE.src)
                 return
             name_variant = self.variants[int(text) - 1] if text.isnumeric() else text
-            self.select_variant(None, name_variant)
+            self.select_variant(name_variant)
             self.drawer.set_image(CharacterIMG.DEFAULT.src)
             return
 
