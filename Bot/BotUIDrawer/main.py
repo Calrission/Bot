@@ -10,7 +10,7 @@ class Application:
         self.photo = None
         self.image_c = None
         self.show_gif_animation = False
-        self.root = Tk()Доб
+        self.root = Tk()
         self.root.title('Бот секретарь школы №15 С УИОП г. Электросталь')
         self.root.geometry('700x600')
         self.root.wm_iconbitmap(bitmap=str(Path(pathlib.Path.cwd(), "media_files", "icon.ico")))
