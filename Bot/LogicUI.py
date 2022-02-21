@@ -76,7 +76,7 @@ class LogicUI:
             self.drawer.new_buttons(self.commands)
             self.drawer.set_image(CharacterIMG.ANSWER.src)
 
-    def click_button_search(self):
+    def click_button_search(self, event):
         text = self.drawer.get_text_user_input().strip()
         self.drawer.clear_text_user_input()
 
