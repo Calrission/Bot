@@ -8,7 +8,7 @@ from pathlib import Path
 class LogicUI:
     def __init__(self, logic: Logic, drawer: Application):
         self.commands = {"/start": self.start, "/welcome": self.welcome, "/back": self.back, "/help": self.help,
-                         "/variants": self.variants_}
+                         "/variants": self.variants_, "/clear": self.clear}
         self.logic = logic
         self.drawer = drawer
         self.variants = []
@@ -49,6 +49,9 @@ class LogicUI:
         self.drawer.show_choose_variants(self.variants)
         self.drawer.set_image(CharacterIMG.DEFAULT.src)
 
+    def clear(self, **kwargs):
+        self.drawer.clear_text_output()
+
     def variants_(self, **kwargs):
         self.variants = self.logic.get_variants_now_level()
         if type(self.variants) == list:
@@ -76,7 +79,7 @@ class LogicUI:
             self.drawer.new_buttons(self.commands)
             self.drawer.set_image(CharacterIMG.ANSWER.src)
 
-    def click_button_search(self, event):
+    def click_button_search(self, _):
         text = self.drawer.get_text_user_input().strip()
         self.drawer.clear_text_user_input()
 
@@ -107,7 +110,7 @@ class LogicUI:
             return
 
         if text == "/clear":
-            self.drawer.clear_text_output()
+            self.clear()
             return
 
         if text == "/variants":
