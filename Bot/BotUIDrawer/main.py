@@ -27,7 +27,7 @@ class Application:
         # horizontal scroll frame
         self.hor_scroll_frame_ = Frame(self.root)  # фрейм
         self.hor_scroll_frame_.pack(fill=X)
-        self.hor_scroll_frame = Text(self.hor_scroll_frame_, wrap=NONE, height=2)  # текстовое поле
+        self.hor_scroll_frame = Text(self.hor_scroll_frame_, wrap=NONE, height=2, cursor='arrow')  # текстовое поле
         self.hor_scroll_frame.pack(pady=(5, 5), padx=(5, 5), fill=X)
 
         # Картинка для персонажа
@@ -46,7 +46,7 @@ class Application:
         # вертикальный скролл фрагмента
         self.scrollbar = Scrollbar(self.info_frame)
         self.scrollbar.pack(side=RIGHT, fill=Y)
-        self.txt_widget = Text(self.info_frame, yscrollcommand=self.scrollbar.set, font=15, wrap=WORD)
+        self.txt_widget = Text(self.info_frame, yscrollcommand=self.scrollbar.set, font=15, cursor='arrow', wrap=WORD)
         self.txt_widget.configure(state='disabled')  # для отмены возможности изменения текста
         self.txt_widget.pack(fill='both')
         self.scrollbar.config(command=self.txt_widget.yview)
