@@ -21,6 +21,7 @@ class LogicUI:
 
     def click_button_search(self, _):
         text = self.drawer.get_text_user_input()
+
         self.drawer.clear_text_user_input()
 
         if text == "/start":

@@ -15,9 +15,8 @@ class Application:
         self.root.geometry('700x500')
         self.root.wm_iconbitmap(bitmap=str(Path(pathlib.Path.cwd(), "media_files", "icon.ico")))
         self.root.resizable(width=False, height=False)
-        # self.root.wm_attributes('-transparentcolor', '#ab23ff')
 
-        self.label = Label(self.root, width=100, height=100, bg="red")  # задний frame
+        self.label = Label(self.root, width=100, height=100)  # задний frame
         self.label.pack()
 
         # top frame
@@ -103,22 +102,7 @@ class Application:
                 self.canvas.delete("all")
                 self.image_c = self.canvas.create_image(50, 55, anchor='center', image=frame)
                 self.root.after(100, update, ind)
-        self.root.after(0, update, 0)
 
-    def set_background_gif(self, gif_src: str):
-        count_frame = 128
-        frames = [PhotoImage(file=gif_src, format='gif -index %i' % i) for i in range(count_frame)]
-        self.show_gif_animation = True
-
-        def update(ind):
-            frame = frames[ind]
-            ind += 5
-            if ind >= count_frame:
-                ind = 0
-            if self.show_gif_animation:
-                self.canvas.delete("all")
-                self.image_c = self.canvas.create_image(50, 55, anchor='center', image=frame)
-                self.root.after(100, update, ind)
         self.root.after(0, update, 0)
 
     def run_app(self):
