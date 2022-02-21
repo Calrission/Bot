@@ -12,47 +12,55 @@ class Application:
         self.show_gif_animation = False
         self.root = Tk()
         self.root.title('Бот секретарь школы №15 С УИОП г. Электросталь')
-        self.root.geometry('700x550')
+        self.root.geometry('700x600')
         self.root.wm_iconbitmap(bitmap=str(Path(pathlib.Path.cwd(), "media_files", "icon.ico")))
         self.root.resizable(width=False, height=False)
+        self.root.configure(bg='#0E1621')  # увет фона окна
 
         # top frame
-        self.info_frame = Frame(self.root, height=400, padx=0)
+        self.info_frame = Frame(self.root, height=400, padx=0, bg='#0E1621')
         self.info_frame.pack(fill=X, pady=(5, 5))
 
         # input  frame
-        self.input_frame = Frame(self.root, height=100, pady=10, padx=5)
+        self.input_frame = Frame(self.root, height=100, pady=10, padx=5, bg='#0E1621', bd=0)
         self.input_frame.pack(fill=X)
 
         # horizontal scroll frame
-        self.hor_scroll_frame_ = Frame(self.root)  # фрейм
-        self.hor_scroll_frame_.pack(fill=X)
-        self.hor_scroll_frame = Text(self.hor_scroll_frame_, wrap=NONE, height=2, cursor='arrow')  # текстовое поле
+        self.hor_scroll_frame_ = Frame(self.root, bg='#0E1621')  # фрейм
+        self.hor_scroll_frame_.pack(fill=X, padx=(15, 10))
+        self.hor_scroll_frame = Text(self.hor_scroll_frame_, wrap=NONE, height=2, cursor='arrow',
+                                     bg='#0E1621', borderwidth=0)  # текстовое поле
         self.hor_scroll_frame.pack(pady=(5, 5), padx=(5, 5), fill=X)
 
         # Картинка для персонажа
-        self.canvas = Canvas(self.info_frame, height=120, width=100)
-        self.canvas.pack(side=LEFT, anchor=NW, padx=(5, 0), pady=(0, 0))
+        self.canvas = Canvas(self.info_frame, height=120, width=100, bg='#0E1621', borderwidth=0, highlightthickness=0)
+        self.canvas.pack(side=LEFT, anchor=NW, pady=(0, 0), padx=(5, 10))
 
-        self.ent_name = Entry(self.input_frame, font=15, width=68)
+        self.ent_name = Entry(self.input_frame, font=22, width=68, bg='#17212B', fg='#fff', insertbackground='#fff', bd=0)
         self.ent_name.focus()  # поле ввода сразу становится активным
-        self.ent_name.pack(side=LEFT)
+        self.ent_name.pack(side=LEFT, ipady=7, padx=(20, 0))
 
         Frame(self.root, width=10).pack(side=LEFT)  # Для отступа между полем ввода и кнопкой
 
-        self.btn_search = Button(self.input_frame, text='Узнать', width=10)
-        self.btn_search.pack(side=LEFT)
+        image = Image.open(str(Path(pathlib.Path.cwd(), "media_files", "send_message_btn.png")))\
+            .resize((45, 45), Image.ANTIALIAS)
+        self.image = ImageTk.PhotoImage(image)
+        self.btn_search = Button(self.input_frame, image=self.image, compound=CENTER, bg='#0E1621',
+                                 relief='flat', borderwidth=0)
+        self.btn_search.pack(side=LEFT, padx=(5, 0))
 
         # вертикальный скролл фрагмента
-        self.scrollbar = Scrollbar(self.info_frame)
+        self.scrollbar = Scrollbar(self.info_frame, borderwidth=0)
         self.scrollbar.pack(side=RIGHT, fill=Y)
-        self.txt_widget = Text(self.info_frame, yscrollcommand=self.scrollbar.set, font=15, cursor='arrow', wrap=WORD)
+        self.txt_widget = Text(self.info_frame, yscrollcommand=self.scrollbar.set, font='Courier 12', cursor='arrow', wrap=WORD,
+                               bg='#0E1621', fg='#fff', borderwidth=0)
         self.txt_widget.configure(state='disabled')  # для отмены возможности изменения текста
         self.txt_widget.pack(fill='both')
         self.scrollbar.config(command=self.txt_widget.yview)
 
         # horizontal scroll
         self.hor_scrollbar = Scrollbar(self.hor_scroll_frame_)
+        self.hor_scrollbar.configure(borderwidth=0)
         self.hor_scrollbar.config(command=self.hor_scroll_frame.xview, orient=HORIZONTAL)
         self.hor_scrollbar.pack(side=BOTTOM, fill=X)
         self.hor_scroll_frame.configure(xscrollcommand=self.hor_scrollbar.set)
@@ -67,9 +75,10 @@ class Application:
     def add_buttons(self, buttons: dict[str: classmethod]):
         self.hor_scroll_frame.configure(state=NORMAL)
         for text in buttons:
-            frame_button = Frame(self.hor_scroll_frame, padx=5, )
-            button = Button(frame_button, text=text, command=(lambda txt=text: buttons[txt](name_variant=txt)))
-            button.pack()
+            frame_button = Frame(self.hor_scroll_frame, bg='#0E1621')
+            button = Button(frame_button, text=text, justify='center', bg='#1E2C3A', relief='flat', fg='#fff', font='Candara 9',
+                            activebackground='#314050', command=(lambda txt=text: buttons[txt](name_variant=txt)))
+            button.pack(padx=(0, 5), ipady=5, ipadx=5)
             self.hor_scroll_frame.window_create(END, window=frame_button)
         self.hor_scroll_frame.configure(state=DISABLED)
 
