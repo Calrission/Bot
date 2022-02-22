@@ -81,8 +81,9 @@ class Application:
         self.hor_scroll_frame.configure(state=NORMAL)
         for text in buttons:
             frame_button = Frame(self.hor_scroll_frame, bg='#0E1621')
-            button = Button(frame_button, text=text, justify='center', bg='#1E2C3A', relief='flat', fg='#fff', font='Candara 9',
-                            activebackground='#314050', command=(lambda txt=text: buttons[txt](name_variant=txt)))
+            button = Button(frame_button, text=text, justify='center', bg='#1E2C3A', relief='flat', fg='#fff',
+                            font='Candara 9', activebackground='#314050',
+                            command=(lambda txt=text: buttons[txt](name_variant=txt)))
             button.pack(padx=(0, 5), ipady=5, ipadx=5)
             self.hor_scroll_frame.window_create(END, window=frame_button)
         self.hor_scroll_frame.configure(state=DISABLED)

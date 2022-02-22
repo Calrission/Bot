@@ -131,13 +131,10 @@ class LogicUI:
 
     @staticmethod
     def near_words(word: str, variants_words: list[str]) -> list[str]:
-        layout = dict(zip(map(ord, "йцукенгшщзфывапролдячсмитьЙЦУКЕНГШЩЗФЫВАПРОЛДЯЧСМИТЬ"),
-                          "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"))
-        word_translate = word.translate(layout)
         return [i[0] for i in list(filter(lambda x: 0 <= x[1] <= 3,
                                           [(v_word, Levenshtein.distance(word, v_word)) for v_word in
                                            variants_words]))] + [
-                   word_translate] if word_translate in variants_words else []
+                   word_translate]
 
     def run_app(self):
         self.drawer.run_app()
