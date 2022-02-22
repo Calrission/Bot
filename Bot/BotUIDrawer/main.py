@@ -1,6 +1,7 @@
 import pathlib
 from pathlib import Path
 from tkinter import *
+from tkinter import ttk  # Для стилей
 
 from PIL import Image, ImageTk
 
@@ -17,6 +18,10 @@ class Application:
         self.root.resizable(width=False, height=False)
         self.root.configure(bg='#0E1621')  # цвет фона окна
         # self.root.overrideredirect(True) # Убирает рамки windows
+
+        self.style = ttk.Style(self.root)
+        self.style.theme_use('winnative')
+        self.style.configure('Vertical.TScrollbar', background='#0E1621', arrowcolor='red')
 
         # top frame
         self.info_frame = Frame(self.root, height=400, padx=0, bg='#0E1621')
@@ -51,7 +56,7 @@ class Application:
         self.btn_search.pack(side=LEFT, padx=(5, 0))
 
         # вертикальный скролл фрагмента
-        self.scrollbar = Scrollbar(self.info_frame, borderwidth=0)
+        self.scrollbar = ttk.Scrollbar(self.info_frame, style='Vertical.TScrollbar')
         self.scrollbar.pack(side=RIGHT, fill=Y)
         self.txt_widget = Text(self.info_frame, yscrollcommand=self.scrollbar.set, font='Courier 12', cursor='arrow', wrap=WORD,
                                bg='#0E1621', fg='#fff', borderwidth=0)
@@ -60,8 +65,8 @@ class Application:
         self.scrollbar.config(command=self.txt_widget.yview)
 
         # horizontal scroll
-        self.hor_scrollbar = Scrollbar(self.hor_scroll_frame_)
-        self.hor_scrollbar.configure(borderwidth=0)
+        self.hor_scrollbar = ttk.Scrollbar(self.hor_scroll_frame_)
+        # self.hor_scrollbar.configure(borderwidth=0)
         self.hor_scrollbar.config(command=self.hor_scroll_frame.xview, orient=HORIZONTAL)
         self.hor_scrollbar.pack(side=BOTTOM, fill=X)
         self.hor_scroll_frame.configure(xscrollcommand=self.hor_scrollbar.set)
