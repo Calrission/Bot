@@ -54,7 +54,6 @@ class VoiceReader:
                 break
 
     def stop(self):
-        print("stop")
         self.history.clear()
         self.stream.stop_stream()
 

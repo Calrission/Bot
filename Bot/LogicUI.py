@@ -10,7 +10,7 @@ from pathlib import Path
 class LogicUI:
     def __init__(self, logic: Logic, drawer: Application):
         self.commands = {"/start": self.start, "/welcome": self.welcome, "/back": self.back, "/help": self.help,
-                         "/variants": self.variants_, "/clear": self.clear}
+                         "/variants": self.variants_, "/clear": self.clear, "/voice": self.voice_}
         self.logic = logic
         self.drawer = drawer
         self.voice = VoiceReader()
@@ -41,7 +41,8 @@ class LogicUI:
                     "/variants - показывает варианты перехода по пирамиде\n" \
                     "/back - возвращает назад по пирамиде\n" \
                     "/clear - очищает поле вывода\n" \
-                    "/welcome - показывает приветственный текст"
+                    "/welcome - показывает приветственный текст\n" \
+                    "/voice - переключение режима голосового ввода"
         self.drawer.set_new_text_output(help_text)
         self.drawer.set_image_gif(CharacterIMG.ANIMATION_FACE.src)
 
@@ -150,9 +151,14 @@ class LogicUI:
             self.drawer.set_new_text_user_input(text)
 
     def click_button_voice(self, _):
+        self.voice_()
+
+    def voice_(self, **kwargs):
         if not self.voice.is_activ():
+            self.drawer.set_text_output("Голосовой ввод включен, скажите 'хватит' для отключения")
             self.voice.start(self.parse_voice_text)
         else:
+            self.drawer.set_text_output("Голосовой ввод выключен")
             self.voice.stop()
 
     def run_app(self):
