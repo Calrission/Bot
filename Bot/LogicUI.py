@@ -141,9 +141,17 @@ class LogicUI:
                                           [(v_word, Levenshtein.distance(word, v_word)) for v_word in
                                            variants_words]))]
 
+    def parse_voice_text(self, text: str):
+        if "слэш" in text:
+            text = text.replace("слэш ", "/") if "слэш " in text else text.replace("слэш", "/")
+        if text == "хватит":
+            self.click_button_voice(None)
+        elif text != "":
+            self.drawer.set_new_text_user_input(text)
+
     def click_button_voice(self, _):
         if not self.voice.is_activ():
-            self.voice.start(lambda text: self.drawer.set_new_text_user_input(text) if text != "" else None)
+            self.voice.start(self.parse_voice_text)
         else:
             self.voice.stop()
 

@@ -77,6 +77,9 @@ class Application:
         self.ent_name.delete(0, END)
         self.ent_name.insert(END, text)
 
+    def set_text_user_input(self, text: str):
+        self.ent_name.insert(END, text)
+
     def new_buttons(self, buttons: dict):
         self.clear_buttons()
         self.add_buttons(buttons)

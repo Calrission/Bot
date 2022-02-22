@@ -20,6 +20,7 @@ class VoiceReader:
             input=True,
             frames_per_buffer=16000)
         self.stream.stop_stream()
+        self.history = []
 
     @staticmethod
     def mult_threading(func):
@@ -46,12 +47,15 @@ class VoiceReader:
                 res = self.rec.Result() if self.rec.AcceptWaveform(data) else self.rec.PartialResult()
                 res: str = res[res.index(":") + 2:]
                 res = res[res.index('"') + 1: len(res) - 1 - res[::-1].index('"')]
-                func(res)
+                if len(self.history) == 0 or self.history[-1] != res:
+                    func(res)
+                    self.history.append(res)
             except OSError:
                 break
 
     def stop(self):
         print("stop")
+        self.history.clear()
         self.stream.stop_stream()
 
     def is_activ(self) -> bool:
