@@ -16,7 +16,8 @@ class LogicUI:
         self.voice = VoiceReader()
         self.variants = []
         self.welcome()
-        self.drawer.set_click_button(self.click_button_search)
+        self.drawer.set_click_button_search(self.click_button_search)
+        self.drawer.set_click_button_voice(self.click_button_voice)
 
     def welcome(self, **kwargs):
         self.drawer.set_image(CharacterIMG.WELCOME.src)

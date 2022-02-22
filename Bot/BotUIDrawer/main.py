@@ -122,9 +122,13 @@ class Application:
     def show_object_variant(self, object_str: str):
         self.set_new_text_output(object_str)
 
-    def set_click_button(self, function):
+    def set_click_button_search(self, function):
         self.btn_search.bind('<Button-1>', function)
         self.ent_name.bind("<Return>", function)
+
+    def set_click_button_voice(self, function):
+        # self.btn_search.bind('<Button-1>', function)
+        pass
 
     def set_image(self, image_src: str):
         # Замена картинки персонажа
