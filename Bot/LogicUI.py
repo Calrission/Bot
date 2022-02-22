@@ -2,6 +2,7 @@ from enum import Enum
 from BotLogicModule.BotLogic import Logic
 from BotUIDrawer.main import Application
 import pathlib
+import Levenshtein
 from pathlib import Path
 
 
@@ -74,6 +75,7 @@ class LogicUI:
         if type(self.variants) == list:
             self.drawer.show_choose_variants(self.variants)
             self.add_variants_and_command_to_button()
+            self.drawer.set_image(CharacterIMG.DEFAULT.src)
         elif type(self.variants) == str:
             self.drawer.show_object_variant(self.variants)
             self.drawer.new_buttons(self.commands)
@@ -87,21 +89,21 @@ class LogicUI:
             self.start()
             return
 
-        if (text.isnumeric() or text in self.variants) and type(self.variants) == list and len(self.variants) > 0:
+        if (text.isnumeric() or text.capitalize() in self.variants) and \
+                type(self.variants) == list and len(self.variants) > 0:
             if text.isnumeric() and (0 >= int(text) or int(text) > len(self.variants)):
                 self.drawer.set_text_output("Такого пункта в списке вариантов нет !")
                 self.drawer.set_image(CharacterIMG.QUITE.src)
                 return
-            name_variant = self.variants[int(text) - 1] if text.isnumeric() else text
+            name_variant = self.variants[int(text) - 1] if text.isnumeric() else text.capitalize()
             self.select_variant(name_variant)
-            self.drawer.set_image(CharacterIMG.DEFAULT.src)
             return
 
         if text == "/back":
             self.back()
             return
 
-        if text == "/help":
+        if text == "/help" or text == "/":
             self.help()
             return
 
@@ -117,8 +119,25 @@ class LogicUI:
             self.variants_()
             return
 
-        self.drawer.set_text_output("Я не понял. Повторите.")
+        near_words = self.near_words(text, (self.variants if type(self.variants) == list else []) +
+                                     list(self.commands.keys()))
+        if len(near_words) == 0:
+            self.drawer.set_text_output("Я не понял. Повторите.")
+        else:
+            str_near_words = "\n".join(near_words)
+            self.drawer.set_text_output(
+                f"Я вас не понял. Вы ввели '{text}'. Возможно вы хотели ввести:\n{str_near_words}")
         self.drawer.set_image(CharacterIMG.QUITE.src)
+
+    @staticmethod
+    def near_words(word: str, variants_words: list[str]) -> list[str]:
+        layout = dict(zip(map(ord, "йцукенгшщзфывапролдячсмитьЙЦУКЕНГШЩЗФЫВАПРОЛДЯЧСМИТЬ"),
+                          "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"))
+        word_translate = word.translate(layout)
+        return [i[0] for i in list(filter(lambda x: 0 <= x[1] <= 3,
+                                          [(v_word, Levenshtein.distance(word, v_word)) for v_word in
+                                           variants_words]))] + [
+                   word_translate] if word_translate in variants_words else []
 
     def run_app(self):
         self.drawer.run_app()
