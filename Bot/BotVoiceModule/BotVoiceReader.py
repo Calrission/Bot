@@ -3,6 +3,8 @@ import pathlib
 from pathlib import Path
 import os
 import pyaudio
+import time
+from functools import wraps
 
 
 class VoiceReader:
@@ -18,16 +20,42 @@ class VoiceReader:
             input=True,
             frames_per_buffer=16000)
 
-    def start(self):
+    @staticmethod
+    def mult_threading(func):
+        """Декоратор для запуска функции в отдельном потоке"""
+        @wraps(func)
+        def wrapper(*args_, **kwargs_):
+            import threading
+            func_thread = threading.Thread(target=func,
+                                           args=tuple(args_),
+                                           kwargs=kwargs_)
+            func_thread.start()
+            return func_thread
+
+        return wrapper
+
+    @mult_threading
+    def start(self, func):
         self.stream.start_stream()
         while True:
-            data = self.stream.read(8000)
-            if len(data) == 0:
+            try:
+                data = self.stream.read(8000)
+                if len(data) == 0:
+                    break
+                res = self.rec.Result() if self.rec.AcceptWaveform(data) else self.rec.PartialResult()
+                res: str = res[res.index(":") + 2:]
+                res = res[res.index('"') + 1: len(res) - 1 - res[::-1].index('"')]
+                func(res)
+            except OSError:
                 break
-            print(self.rec.Result() if self.rec.AcceptWaveform(data) else self.rec.PartialResult())
-        print(self.rec.FinalResult())
+
+    def stop(self):
+        print("stop")
+        self.stream.stop_stream()
 
 
 if __name__ == "__main__":
     voice = VoiceReader()
-    voice.start()
+    voice.start(print)
+    time.sleep(60)
+    voice.stop()
