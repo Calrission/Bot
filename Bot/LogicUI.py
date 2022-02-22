@@ -1,6 +1,7 @@
 from enum import Enum
 from BotLogicModule.BotLogic import Logic
 from BotUIDrawer.main import Application
+from BotVoiceModule.BotVoiceReader import VoiceReader
 import pathlib
 import Levenshtein
 from pathlib import Path
@@ -12,6 +13,7 @@ class LogicUI:
                          "/variants": self.variants_, "/clear": self.clear}
         self.logic = logic
         self.drawer = drawer
+        self.voice = VoiceReader()
         self.variants = []
         self.welcome()
         self.drawer.set_click_button(self.click_button_search)
@@ -119,6 +121,10 @@ class LogicUI:
             self.variants_()
             return
 
+        if text == "/voice":
+            self.click_button_voice(None)
+            return
+
         near_words = self.near_words(text, (self.variants if type(self.variants) == list else []) +
                                      list(self.commands.keys()))
         if len(near_words) == 0:
@@ -133,8 +139,13 @@ class LogicUI:
     def near_words(word: str, variants_words: list[str]) -> list[str]:
         return [i[0] for i in list(filter(lambda x: 0 <= x[1] <= 3,
                                           [(v_word, Levenshtein.distance(word, v_word)) for v_word in
-                                           variants_words]))] + [
-                   word_translate]
+                                           variants_words]))]
+
+    def click_button_voice(self, _):
+        if not self.voice.is_activ():
+            self.voice.start(lambda text: self.drawer.set_new_text_user_input(text) if text != "" else None)
+        else:
+            self.voice.stop()
 
     def run_app(self):
         self.drawer.run_app()

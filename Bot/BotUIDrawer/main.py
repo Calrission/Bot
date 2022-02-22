@@ -73,6 +73,10 @@ class Application:
     def get_text_user_input(self):
         return self.ent_name.get()
 
+    def set_new_text_user_input(self, text: str):
+        self.ent_name.delete(0, END)
+        self.ent_name.insert(END, text)
+
     def new_buttons(self, buttons: dict):
         self.clear_buttons()
         self.add_buttons(buttons)
