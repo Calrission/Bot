@@ -80,17 +80,17 @@ class Application:
     def set_text_user_input(self, text: str):
         self.ent_name.insert(END, text)
 
-    def new_buttons(self, buttons: dict):
+    def new_buttons(self, buttons: list, func):
         self.clear_buttons()
-        self.add_buttons(buttons)
+        self.add_buttons(buttons, func)
 
-    def add_buttons(self, buttons: dict[str: classmethod]):
+    def add_buttons(self, buttons: list, func):
         self.hor_scroll_frame.configure(state=NORMAL)
         for text in buttons:
             frame_button = Frame(self.hor_scroll_frame, bg='#0E1621')
             button = Button(frame_button, text=text, justify='center', bg='#1E2C3A', relief='flat', fg='#fff',
                             font='Candara 9', activebackground='#314050',
-                            command=(lambda txt=text: buttons[txt](name_variant=txt)))
+                            command=(lambda txt=text: func(name_variant=txt)))
             button.pack(padx=(0, 5), ipady=5, ipadx=5)
             self.hor_scroll_frame.window_create(END, window=frame_button)
         self.hor_scroll_frame.configure(state=DISABLED)

@@ -9,8 +9,8 @@ from pathlib import Path
 
 class LogicUI:
     def __init__(self, logic: Logic, drawer: Application):
-        self.commands = {"/start": self.start, "/welcome": self.welcome, "/back": self.back, "/help": self.help,
-                         "/variants": self.variants_, "/clear": self.clear, "/voice": self.voice_}
+        self.commands = ["/start", "/welcome", "/back", "/help",
+                         "/variants", "/clear", "/voice"]
         self.logic = logic
         self.drawer = drawer
         self.voice = VoiceReader()
@@ -19,14 +19,14 @@ class LogicUI:
         self.drawer.set_click_button_search(self.click_button_search)
         self.drawer.set_click_button_voice(self.click_button_voice)
 
-    def welcome(self, **kwargs):
+    def welcome(self):
         self.drawer.set_image(CharacterIMG.WELCOME.src)
         self.drawer.set_new_text_output(
             "Здравствуйте, я бот-секретарь. Я помогу вам узнать о школе №15 с УИОП г. Электросталь. Давайте же "
             "начнем.\nВведите /start для того чтобы начать.\nВведите /help для получения помощи.")
-        self.drawer.new_buttons(self.commands)
+        self.drawer.new_buttons(self.commands, self.click_button_variants)
 
-    def back(self, **kwargs):
+    def back(self):
         if len(self.logic.path_indexes_data) == 0:
             self.drawer.set_text_output("Назад пути нет !")
             self.drawer.set_image(CharacterIMG.QUITE.src)
@@ -36,28 +36,29 @@ class LogicUI:
         self.add_variants_and_command_to_button()
         self.drawer.set_image(CharacterIMG.DEFAULT.src)
 
-    def help(self, **kwargs):
+    def help(self):
         help_text = "Список команд:\n" \
-                    "/start - возвращает в начало пирамиды\n" \
-                    "/variants - показывает варианты перехода по пирамиде\n" \
-                    "/back - возвращает назад по пирамиде\n" \
-                    "/clear - очищает поле вывода\n" \
+                    "/start (/старт) - возвращает в начало пирамиды\n" \
+                    "/variants (/варианты) - показывает варианты перехода по пирамиде\n" \
+                    "/back (/назад) - возвращает назад по пирамиде\n" \
+                    "/clear (/очистка) - очищает поле вывода\n" \
                     "/welcome - показывает приветственный текст\n" \
-                    "/voice - переключение режима голосового ввода"
+                    "/voice - переключение режима голосового ввода\n\n" \
+                    "В скобках указана команды для голосового ввода (они также начинаются со слова 'слэш')"
         self.drawer.set_new_text_output(help_text)
         self.drawer.set_image_gif(CharacterIMG.ANIMATION_FACE.src)
 
-    def start(self, **kwargs):
+    def start(self):
         self.logic.path_indexes_data = []
         self.variants = self.logic.get_variants_now_level()
         self.add_variants_and_command_to_button()
         self.drawer.show_choose_variants(self.variants)
         self.drawer.set_image(CharacterIMG.DEFAULT.src)
 
-    def clear(self, **kwargs):
+    def clear(self):
         self.drawer.clear_text_output()
 
-    def variants_(self, **kwargs):
+    def variants_(self):
         self.variants = self.logic.get_variants_now_level()
         if type(self.variants) == list:
             self.drawer.show_choose_variants(self.variants)
@@ -67,12 +68,12 @@ class LogicUI:
             self.drawer.set_text_output("Извините, но для текущей позиции нету вариантов переходов по пирамиде.")
             self.drawer.set_image(CharacterIMG.QUITE.src)
 
-    def parse_now_variants_to_buttons_dict(self) -> dict:
-        return {i: self.select_variant for i in self.variants}
+    def parse_now_variants_to_buttons_dict(self) -> list:
+        return self.variants
 
     def add_variants_and_command_to_button(self):
-        self.drawer.new_buttons(self.parse_now_variants_to_buttons_dict())
-        self.drawer.add_buttons(self.commands)
+        self.drawer.new_buttons(self.parse_now_variants_to_buttons_dict(), self.click_button_variants)
+        self.drawer.add_buttons(self.commands, self.click_button_variants)
 
     def select_variant(self, name_variant: str):
         self.variants = self.logic.choose_object_now_level(name_variant)
@@ -82,13 +83,13 @@ class LogicUI:
             self.drawer.set_image(CharacterIMG.DEFAULT.src)
         elif type(self.variants) == str:
             self.drawer.show_object_variant(self.variants)
-            self.drawer.new_buttons(self.commands)
+            self.drawer.new_buttons(self.commands, self.click_button_variants)
             self.drawer.set_image(CharacterIMG.ANSWER.src)
 
-    def click_button_search(self, _):
-        text = self.drawer.get_text_user_input().strip()
-        self.drawer.clear_text_user_input()
+    def click_button_variants(self, name_variant: str):
+        self.parse_text_input_user(name_variant)
 
+    def parse_text_input_user(self, text: str):
         if text == "/start":
             self.start()
             return
@@ -127,8 +128,7 @@ class LogicUI:
             self.click_button_voice(None)
             return
 
-        near_words = self.near_words(text, (self.variants if type(self.variants) == list else []) +
-                                     list(self.commands.keys()))
+        near_words = self.near_words(text, (self.variants if type(self.variants) == list else []) + self.commands)
         if len(near_words) == 0:
             self.drawer.set_text_output("Я не понял. Повторите.")
         else:
@@ -137,6 +137,11 @@ class LogicUI:
                 f"Я вас не понял. Вы ввели '{text}'. Возможно вы хотели ввести:\n{str_near_words}")
         self.drawer.set_image(CharacterIMG.QUITE.src)
 
+    def click_button_search(self, _):
+        text = self.drawer.get_text_user_input().strip()
+        self.drawer.clear_text_user_input()
+        self.parse_text_input_user(text)
+
     @staticmethod
     def near_words(word: str, variants_words: list[str]) -> list[str]:
         return [i[0] for i in list(filter(lambda x: 0 <= x[1] <= 3,
@@ -144,8 +149,11 @@ class LogicUI:
                                            variants_words]))]
 
     def parse_voice_text(self, text: str):
+        commands_rus_end = {"/старт": "/start", "/очистка": "/clear", "/варианты": "/variants", "/назад": "/back"}
         if "слэш" in text:
             text = text.replace("слэш ", "/") if "слэш " in text else text.replace("слэш", "/")
+            if text in commands_rus_end:
+                text = text.replace(text, commands_rus_end[text])
         if text == "хватит":
             self.click_button_voice(None)
         elif text != "":
@@ -154,7 +162,7 @@ class LogicUI:
     def click_button_voice(self, _):
         self.voice_()
 
-    def voice_(self, **kwargs):
+    def voice_(self):
         if not self.voice.is_activ():
             self.drawer.set_text_output("Голосовой ввод включен, скажите 'хватит' для отключения")
             self.voice.start(self.parse_voice_text)
