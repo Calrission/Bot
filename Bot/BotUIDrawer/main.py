@@ -13,7 +13,7 @@ class Application:
         self.show_gif_animation = False
         self.root = Tk()
         self.root.title('Бот секретарь школы №15 С УИОП г. Электросталь')
-        self.root.geometry('700x600')
+        self.root.geometry('760x600')
         self.root.wm_iconbitmap(bitmap=str(Path(pathlib.Path.cwd(), "media_files", "icon.ico")))
         self.root.resizable(width=False, height=False)
         self.root.configure(bg='#0E1621')  # цвет фона окна
@@ -42,23 +42,35 @@ class Application:
         self.canvas = Canvas(self.info_frame, height=120, width=100, bg='#0E1621', borderwidth=0, highlightthickness=0)
         self.canvas.pack(side=LEFT, anchor=NW, pady=(0, 0), padx=(5, 10))
 
-        self.ent_name = Entry(self.input_frame, font=22, width=68, bg='#17212B', fg='#fff', insertbackground='#fff', bd=0)
+        self.ent_name = Entry(self.input_frame, font=22, width=68, bg='#17212B', fg='#fff', insertbackground='#fff',
+                              bd=0)
         self.ent_name.focus()  # поле ввода сразу становится активным
-        self.ent_name.pack(side=LEFT, ipady=7, padx=(20, 0))
+        self.ent_name.pack(side=LEFT, ipady=10, padx=(20, 0))
 
         Frame(self.root, width=10).pack(side=LEFT)  # Для отступа между полем ввода и кнопкой
 
-        image = Image.open(str(Path(pathlib.Path.cwd(), "media_files", "send_message_btn.png")))\
+        # send message
+        image = Image.open(str(Path(pathlib.Path.cwd(), "media_files", "send_message_btn.png"))) \
             .resize((45, 45), Image.ANTIALIAS)
         self.image = ImageTk.PhotoImage(image)
         self.btn_search = Button(self.input_frame, image=self.image, compound=CENTER, bg='#0E1621',
                                  relief='flat', borderwidth=0)
         self.btn_search.pack(side=LEFT, padx=(5, 0))
 
+        # voice message
+        voice_image = Image.open(str(Path(pathlib.Path.cwd(), "media_files", "voice_btn.png"))) \
+            .resize((45, 45), Image.ANTIALIAS)
+        self.voice_image = ImageTk.PhotoImage(voice_image)
+        self.btn_voice = Button(self.input_frame, image=self.voice_image, compound=CENTER, bg='#0E1621',
+                                relief='flat', borderwidth=0)
+        self.btn_voice.bind("<B1-Motion>", self.long_click_voice_btn)
+        self.btn_voice.pack(side=LEFT, padx=(5, 0))
+
         # вертикальный скролл фрагмента
         self.scrollbar = ttk.Scrollbar(self.info_frame, style='Vertical.TScrollbar')
         self.scrollbar.pack(side=RIGHT, fill=Y)
-        self.txt_widget = Text(self.info_frame, yscrollcommand=self.scrollbar.set, font='Courier 12', cursor='arrow', wrap=WORD,
+        self.txt_widget = Text(self.info_frame, yscrollcommand=self.scrollbar.set, font='Courier 12', cursor='arrow',
+                               wrap=WORD,
                                bg='#0E1621', fg='#fff', borderwidth=0)
         self.txt_widget.configure(state='disabled')  # для отмены возможности изменения текста
         self.txt_widget.pack(fill='both')
@@ -71,6 +83,10 @@ class Application:
         self.hor_scrollbar.pack(side=BOTTOM, fill=X)
         self.hor_scroll_frame.configure(xscrollcommand=self.hor_scrollbar.set)
 
+    @staticmethod
+    def long_click_voice_btn(self):
+        print('ok')
+
     def get_text_user_input(self):
         return self.ent_name.get()
 
@@ -82,7 +98,8 @@ class Application:
         self.hor_scroll_frame.configure(state=NORMAL)
         for text in buttons:
             frame_button = Frame(self.hor_scroll_frame, bg='#0E1621')
-            button = Button(frame_button, text=text, justify='center', bg='#1E2C3A', relief='flat', fg='#fff', font='Candara 9',
+            button = Button(frame_button, text=text, justify='center', bg='#1E2C3A', relief='flat', fg='#fff',
+                            font='Candara 9',
                             activebackground='#314050', command=(lambda txt=text: buttons[txt](name_variant=txt)))
             button.pack(padx=(0, 5), ipady=5, ipadx=5)
             self.hor_scroll_frame.window_create(END, window=frame_button)
