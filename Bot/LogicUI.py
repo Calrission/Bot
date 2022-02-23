@@ -149,7 +149,8 @@ class LogicUI:
                                            variants_words]))]
 
     def parse_voice_text(self, text: str):
-        commands_rus_end = {"/старт": "/start", "/очистка": "/clear", "/варианты": "/variants", "/назад": "/back"}
+        commands_rus_end = {"/старт": "/start", "/очистка": "/clear", "/варианты": "/variants", "/назад": "/back",
+                            "/помощь": "/help"}
         if "слэш" in text:
             text = text.replace("слэш ", "/") if "слэш " in text else text.replace("слэш", "/")
             if text in commands_rus_end:
@@ -163,7 +164,7 @@ class LogicUI:
         self.voice_()
 
     def voice_(self):
-        if not self.voice.is_activ():
+        if not self.voice.is_record:
             self.drawer.set_text_output("Голосовой ввод включен, скажите 'хватит' для отключения")
             self.voice.start(self.parse_voice_text)
         else:

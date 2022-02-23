@@ -13,14 +13,9 @@ class VoiceReader:
         self.model = Model(self.path)
         self.rec = KaldiRecognizer(self.model, 16000)
         self.p = pyaudio.PyAudio()
-        self.stream = self.p.open(
-            format=pyaudio.paInt16,
-            channels=1,
-            rate=16000,
-            input=True,
-            frames_per_buffer=16000)
-        self.stream.stop_stream()
         self.history = []
+        self.stream = None
+        self.is_record = False
 
     @staticmethod
     def mult_threading(func):
@@ -38,11 +33,19 @@ class VoiceReader:
 
     @mult_threading
     def start(self, func):
+        self.stream = self.p.open(
+            format=pyaudio.paInt16,
+            channels=1,
+            rate=16000,
+            input=True,
+            frames_per_buffer=16000)
         self.stream.start_stream()
+        self.is_record = True
         while True:
             try:
                 data = self.stream.read(8000)
                 if len(data) == 0:
+                    self.is_record = False
                     break
                 res = self.rec.Result() if self.rec.AcceptWaveform(data) else self.rec.PartialResult()
                 res: str = res[res.index(":") + 2:]
@@ -51,14 +54,17 @@ class VoiceReader:
                     func(res)
                     self.history.append(res)
             except OSError:
+                self.is_record = False
                 break
 
     def stop(self):
+        self.is_record = False
         self.history.clear()
-        self.stream.stop_stream()
+        if self.stream is not None:
+            self.stream.stop_stream()
 
     def is_activ(self) -> bool:
-        return self.stream.is_active()
+        return self.is_record
 
 
 if __name__ == "__main__":

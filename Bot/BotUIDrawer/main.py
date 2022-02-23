@@ -56,13 +56,12 @@ class Application:
                                  relief='flat', borderwidth=0)
         self.btn_search.pack(side=LEFT, padx=(5, 0))
 
-        # voice message
         voice_image = Image.open(str(Path(pathlib.Path.cwd(), "media_files", "voice_btn.png"))) \
             .resize((45, 45), Image.ANTIALIAS)
         self.voice_image = ImageTk.PhotoImage(voice_image)
-        self.btn_voice = Button(self.input_frame, image=self.voice_image, compound=CENTER, bg='#0E1621',
-                                relief='flat', borderwidth=0)
-        self.btn_voice.bind("<B1-Motion>", self.long_click_voice_btn)
+        # voice message
+        self.btn_voice = Button(self.input_frame, compound=CENTER, bg='#0E1621',
+                                relief='flat', borderwidth=0, image=self.voice_image)
         self.btn_voice.pack(side=LEFT, padx=(5, 0))
 
         # вертикальный скролл фрагмента
@@ -138,8 +137,7 @@ class Application:
         self.ent_name.bind("<Return>", function)
 
     def set_click_button_voice(self, function):
-        # self.btn_search.bind('<Button-1>', function)
-        pass
+        self.btn_voice.bind('<Button-1>', function)
 
     def set_image(self, image_src: str):
         # Замена картинки персонажа
