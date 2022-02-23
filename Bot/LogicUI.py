@@ -7,19 +7,28 @@ import Levenshtein
 from pathlib import Path
 
 
+"""
+Класс взаимодействия логики бота с экраном приложения. Валидирует весь пользовательский ввод.
+by Артемий Струков
+created 19/02/22
+"""
+
+
 class LogicUI:
     def __init__(self, logic: Logic, drawer: Application):
         self.commands = ["/start", "/welcome", "/back", "/help",
                          "/variants", "/clear", "/voice"]
-        self.logic = logic
-        self.drawer = drawer
-        self.voice = VoiceReader()
-        self.variants = []
-        self.welcome()
+        self.logic = logic          # Модуль логики бота
+        self.drawer = drawer        # Модуль отрисовки окна
+        self.voice = VoiceReader()  # Модуль голосового ввода
+        self.variants = []          # Все варианты переходов по пирамиде
+        self.welcome()              # При старте программы приветственный текст
+        # Установка кликов на кнопки
         self.drawer.set_click_button_search(self.click_button_search)
         self.drawer.set_click_button_voice(self.click_button_voice)
 
     def welcome(self):
+        """Показ приветственного текста с заменой персонажа и сброс всех кнопок к начальному состоянию"""
         self.drawer.set_image(CharacterIMG.WELCOME.src)
         self.drawer.set_new_text_output(
             "Здравствуйте, я бот-секретарь. Я помогу вам узнать о школе №15 с УИОП г. Электросталь. Давайте же "
@@ -28,6 +37,7 @@ class LogicUI:
 
     def back(self):
         if len(self.logic.path_indexes_data) == 0:
+            # Если это начало пирамиды
             self.drawer.set_text_output("Назад пути нет !")
             self.drawer.set_image(CharacterIMG.QUITE.src)
             return
@@ -68,20 +78,25 @@ class LogicUI:
             self.drawer.set_text_output("Извините, но для текущей позиции нету вариантов переходов по пирамиде.")
             self.drawer.set_image(CharacterIMG.QUITE.src)
 
-    def parse_now_variants_to_buttons_dict(self) -> list:
-        return self.variants
-
     def add_variants_and_command_to_button(self):
-        self.drawer.new_buttons(self.parse_now_variants_to_buttons_dict(), self.click_button_variants)
+        """Метод добавления кнопок команд и вариантов перехода по пирамиде"""
+        self.drawer.new_buttons(self.variants, self.click_button_variants)
         self.drawer.add_buttons(self.commands, self.click_button_variants)
 
     def select_variant(self, name_variant: str):
+        """Метод перехода по пирамиде
+
+        :param name_variant - название варианта перехода по пирамиде
+        """
+        # Получаем новый список вариантов переходов, после перехода
         self.variants = self.logic.choose_object_now_level(name_variant)
         if type(self.variants) == list:
+            # Если есть варианты переходов по пирамиде
             self.drawer.show_choose_variants(self.variants)
             self.add_variants_and_command_to_button()
             self.drawer.set_image(CharacterIMG.DEFAULT.src)
         elif type(self.variants) == str:
+            # Если это конечный объект в пирамиде
             self.drawer.show_object_variant(self.variants)
             self.drawer.new_buttons(self.commands, self.click_button_variants)
             self.drawer.set_image(CharacterIMG.ANSWER.src)
@@ -125,9 +140,11 @@ class LogicUI:
             return
 
         if text == "/voice":
+            # Имитация нажатия на кнопку голосового ввода
             self.click_button_voice(None)
             return
 
+        # Список похожих слов/предложений
         near_words = self.near_words(text, (self.variants if type(self.variants) == list else []) + self.commands)
         if len(near_words) == 0:
             self.drawer.set_text_output("Я не понял. Повторите.")
@@ -144,6 +161,14 @@ class LogicUI:
 
     @staticmethod
     def near_words(word: str, variants_words: list[str]) -> list[str]:
+        """
+        Метод определяет похожие слова от исходного из списка слов. Похожие слова от исходного - это слова, которым
+        нужно 0-3 изменений что-бы стать исходным. Используется алгоритм Левенштейна из соответствующий библиотеки.
+
+        :param word исходное слово
+
+        :param variants_words список слов для поиска похожих слов
+        """
         return [i[0] for i in list(filter(lambda x: 0 <= x[1] <= 3,
                                           [(v_word, Levenshtein.distance(word, v_word)) for v_word in
                                            variants_words]))]
@@ -176,14 +201,14 @@ class LogicUI:
 
 
 class CharacterIMG(Enum):
-    WELCOME = "face2.png"
-    DEFAULT = "face1.png"
-    ANSWER = "face3.png"
-    THING = "face2.png"
-    QUITE = "face4.png"
-    ICON = "icon.png"
-    ICON_ISO = "icon.ico"
-    ANIMATION_FACE = "animation_face.gif"
+    WELCOME = "face2.png"                   # Приветственное лицо
+    DEFAULT = "face1.png"                   # Стандартное лицо
+    ANSWER = "face3.png"                    # Лицо для конечных ответов
+    THING = "face2.png"                     # Думающее лицо
+    QUITE = "face4.png"                     # Лицо для ошибок
+    ICON = "icon.png"                       # Иконка .png
+    ICON_ISO = "icon.ico"                   # Иконка .icon
+    ANIMATION_FACE = "animation_face.gif"   # GIF лицо помощи (/help)
 
     def __init__(self, filename):
         self.filename = filename

@@ -1,4 +1,4 @@
-from .ParseJSONData import ParseJSONData
+from ParseJSONData import ParseJSONData
 
 """
 Класс логики бота. Служить для перемещения по дереву (json файлу). В self два параметра: data - словарь с объектами; 

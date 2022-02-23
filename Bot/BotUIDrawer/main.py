@@ -4,6 +4,12 @@ from tkinter import *
 from tkinter import ttk  # Для стилей
 from PIL import Image, ImageTk
 
+"""
+Класс отрисовки окна приложения.
+by Данил Зиновьев и Артемий Струков
+created 19/02/22
+"""
+
 
 class Application:
     def __init__(self):
@@ -81,20 +87,25 @@ class Application:
         self.hor_scroll_frame.configure(xscrollcommand=self.hor_scrollbar.set)
 
     def get_text_user_input(self):
+        """Получение пользовательского ввода"""
         return self.ent_name.get()
 
     def set_new_text_user_input(self, text: str):
+        """Установка текста в поле ввода пользователя с удалением ранее веденного текста"""
         self.ent_name.delete(0, END)
         self.ent_name.insert(END, text)
 
     def set_text_user_input(self, text: str):
+        """Установка текста в конец поле ввода пользователя"""
         self.ent_name.insert(END, text)
 
     def new_buttons(self, buttons: list, func):
+        """Установка новых кнопок с удалением старых"""
         self.clear_buttons()
         self.add_buttons(buttons, func)
 
     def add_buttons(self, buttons: list, func):
+        """Установка новых кнопок в конец"""
         self.hor_scroll_frame.configure(state=NORMAL)
         for text in buttons:
             frame_button = Frame(self.hor_scroll_frame, bg='#0E1621')
@@ -106,37 +117,46 @@ class Application:
         self.hor_scroll_frame.configure(state=DISABLED)
 
     def clear_buttons(self):
+        """Удаление всех кнопок"""
         [i.destroy() for i in self.hor_scroll_frame.winfo_children()]
 
     def clear_text_user_input(self):
+        """Очистка пользовательского ввода"""
         return self.ent_name.delete(0, END)
 
     def set_text_output(self, text: str):
+        """Установка текста в конец поле вывода"""
         self.txt_widget.configure(state='normal')  # для возобновления возможности изменения текста
         self.txt_widget.insert('end', text + "\n")
         self.txt_widget.configure(state='disabled')  # для отмены возможности изменения текста
 
     def set_new_text_output(self, text: str):
+        """Установка текста в поле вывода с удалением старого текста"""
         self.clear_text_output()
         self.set_text_output(text)
 
     def clear_text_output(self):
+        """Очистка поля вывода"""
         self.txt_widget.configure(state='normal')  # для возобновления возможности изменения текста
         self.txt_widget.delete(1.0, END)
         self.txt_widget.configure(state='disabled')  # для отмены возможности изменения текста
 
     def show_choose_variants(self, variants: list):
+        """Показ вариантов переходов по пирамиде в поле вывода"""
         str_list = "\n".join(f"{index + 1} " + variant for index, variant in enumerate(variants))
         self.set_new_text_output(f"Выберите вариант перехода по пирамиде:\n{str_list}")
 
     def show_object_variant(self, object_str: str):
+        """Показ объекта в поле вывода"""
         self.set_new_text_output(object_str)
 
     def set_click_button_search(self, function):
+        """Установка метода на нажатие кнопки поиска"""
         self.btn_search.bind('<Button-1>', function)
         self.ent_name.bind("<Return>", function)
 
     def set_click_button_voice(self, function):
+        """Установка метода на нажатие кнопки голосового вода"""
         self.btn_voice.bind('<Button-1>', function)
 
     def set_image(self, image_src: str):
