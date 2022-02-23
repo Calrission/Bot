@@ -8,8 +8,7 @@ from functools import wraps
 
 class VoiceReader:
     def __init__(self):
-        self.path = str(Path(pathlib.Path.cwd(), "media_files", "models", "vosk-model-small-ru-0.22"))\
-            .replace("BotVoiceModule\\", "")
+        self.path = str(Path(pathlib.Path.cwd(), "BotVoiceModule", "models", "vosk-model-small-ru-0.22"))
         self.model = Model(self.path)
         self.rec = KaldiRecognizer(self.model, 16000)
         self.p = pyaudio.PyAudio()

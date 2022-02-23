@@ -1,4 +1,4 @@
-from ParseJSONData import ParseJSONData
+import json
 
 """
 Класс логики бота. Служить для перемещения по дереву (json файлу). В self два параметра: data - словарь с объектами; 
@@ -55,3 +55,13 @@ class Logic:
         """
         del self.path_indexes_data[-1]
         return self.get_variants_now_level()
+
+
+class ParseJSONData:
+    def __init__(self, filepath="BotLogicModule/data.json"):
+        self.filepath = filepath
+
+    def decode_local_json(self) -> dict:
+        with open(self.filepath, "r", encoding="utf-8") as file:
+            data = json.load(file)
+        return data
