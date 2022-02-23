@@ -34,6 +34,9 @@ class Application:
         self.info_frame = Frame(self.root, height=400, padx=0, bg='#0E1621')
         self.info_frame.pack(fill=X, pady=(5, 5))
 
+        self.frame_images = Frame(self.info_frame, width=100, bg='#0E1621')
+        self.frame_images.pack(side=LEFT, anchor=N)
+
         # input  frame
         self.input_frame = Frame(self.root, height=100, pady=10, padx=5, bg='#0E1621', bd=0)
         self.input_frame.pack(fill=X)
@@ -46,11 +49,11 @@ class Application:
         self.hor_scroll_frame.pack(pady=(5, 5), padx=(5, 5), fill=X)
 
         # Картинка для персонажа
-        self.canvas = Canvas(self.info_frame, height=120, width=100, bg='#0E1621', borderwidth=0, highlightthickness=0)
-        self.canvas.pack(side=LEFT, anchor=NW, pady=(0, 0), padx=(5, 10))
+        self.canvas = Canvas(self.frame_images, height=120, width=100, bg='#0E1621', borderwidth=0, highlightthickness=0)
+        self.canvas.grid(row=1, pady=(0, 0), padx=(5, 10))
 
-        self.canvas_dop = Canvas(self.info_frame, height=120, width=100, bg='red', borderwidth=0, highlightthickness=0)
-        self.canvas_dop.pack(side=LEFT, anchor=W, pady=(0, 0), padx=(5, 10))
+        self.canvas_dop = Canvas(self.frame_images, height=120, width=100, bg='#0E1621', borderwidth=0, highlightthickness=0)
+        self.canvas_dop.grid(row=2, pady=(0, 0), padx=(5, 10))
 
         self.ent_name = Entry(self.input_frame, font=22, width=68, bg='#17212B', fg='#fff', insertbackground='#fff',
                               bd=0)
