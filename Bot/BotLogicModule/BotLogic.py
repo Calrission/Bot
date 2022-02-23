@@ -10,8 +10,8 @@ created 19/02/2022
 
 class Logic:
     def __init__(self):
-        self.data = ParseJSONData().decode_local_json()
-        self.path_indexes_data = []
+        self.data: dict = ParseJSONData().decode_local_json()
+        self.path_indexes_data: list = []
 
     def get_object_from_path(self, path: list) -> dict | str:
         """

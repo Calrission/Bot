@@ -49,10 +49,12 @@ class Application:
         self.hor_scroll_frame.pack(pady=(5, 5), padx=(5, 5), fill=X)
 
         # Картинка для персонажа
-        self.canvas = Canvas(self.frame_images, height=120, width=100, bg='#0E1621', borderwidth=0, highlightthickness=0)
+        self.canvas = Canvas(self.frame_images, height=120, width=100, bg='#0E1621', borderwidth=0,
+                             highlightthickness=0)
         self.canvas.grid(row=1, pady=(0, 0), padx=(5, 10))
 
-        self.canvas_dop = Canvas(self.frame_images, height=120, width=100, bg='#0E1621', borderwidth=0, highlightthickness=0)
+        self.canvas_dop = Canvas(self.frame_images, height=120, width=100, bg='#0E1621', borderwidth=0,
+                                 highlightthickness=0)
         self.canvas_dop.grid(row=2, pady=(0, 0), padx=(5, 10))
 
         self.ent_name = Entry(self.input_frame, font=22, width=68, bg='#17212B', fg='#fff', insertbackground='#fff',
@@ -78,7 +80,7 @@ class Application:
                                 relief='flat', borderwidth=0, image=self.voice_image)
         self.btn_voice.pack(side=LEFT, padx=(5, 0))
 
-        # вертикальный скролл фрагмента
+        # вертикальный scroll фрагмента
         self.scrollbar = ttk.Scrollbar(self.info_frame, style='Vertical.TScrollbar')
         self.scrollbar.pack(side=RIGHT, fill=Y)
         self.txt_widget = Text(self.info_frame, yscrollcommand=self.scrollbar.set, font='Courier 12', cursor='arrow',
@@ -89,7 +91,6 @@ class Application:
 
         # horizontal scroll
         self.hor_scrollbar = ttk.Scrollbar(self.hor_scroll_frame_)
-        # self.hor_scrollbar.configure(borderwidth=0)
         self.hor_scrollbar.config(command=self.hor_scroll_frame.xview, orient=HORIZONTAL)
         self.hor_scrollbar.pack(side=BOTTOM, fill=X)
         self.hor_scroll_frame.configure(xscrollcommand=self.hor_scrollbar.set)
