@@ -50,7 +50,7 @@ class Application:
         self.canvas.pack(side=LEFT, anchor=NW, pady=(0, 0), padx=(5, 10))
 
         self.canvas_dop = Canvas(self.info_frame, height=120, width=100, bg='red', borderwidth=0, highlightthickness=0)
-        self.canvas_dop.pack(side=LEFT, anchor=NW, pady=(0, 0), padx=(5, 10))
+        self.canvas_dop.pack(side=LEFT, anchor=W, pady=(0, 0), padx=(5, 10))
 
         self.ent_name = Entry(self.input_frame, font=22, width=68, bg='#17212B', fg='#fff', insertbackground='#fff',
                               bd=0)
