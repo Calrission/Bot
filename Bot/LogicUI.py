@@ -6,7 +6,6 @@ import pathlib
 import Levenshtein
 from pathlib import Path
 
-
 """
 Класс взаимодействия логики бота с экраном приложения. Валидирует весь пользовательский ввод.
 by Артемий Струков
@@ -18,11 +17,11 @@ class LogicUI:
     def __init__(self, logic: Logic, drawer: Application):
         self.commands = ["/start", "/welcome", "/back", "/help",
                          "/variants", "/clear", "/voice"]
-        self.logic = logic          # Модуль логики бота
-        self.drawer = drawer        # Модуль отрисовки окна
+        self.logic = logic  # Модуль логики бота
+        self.drawer = drawer  # Модуль отрисовки окна
         self.voice = VoiceReader()  # Модуль голосового ввода
-        self.variants = []          # Все варианты переходов по пирамиде
-        self.welcome()              # При старте программы приветственный текст
+        self.variants = []  # Все варианты переходов по пирамиде
+        self.welcome()  # При старте программы приветственный текст
         # Установка кликов на кнопки
         self.drawer.set_click_button_search(self.click_button_search)
         self.drawer.set_click_button_voice(self.click_button_voice)
@@ -42,6 +41,7 @@ class LogicUI:
             self.drawer.set_image(CharacterIMG.QUITE.src)
             return
         self.variants = self.logic.back_level()
+        self.drawer.clear_image_dop()
         self.drawer.show_choose_variants(self.variants)
         self.add_variants_and_command_to_button()
         self.drawer.set_image(CharacterIMG.DEFAULT.src)
@@ -104,6 +104,19 @@ class LogicUI:
     def click_button_variants(self, name_variant: str):
         self.parse_text_input_user(name_variant)
 
+    def paste_image_dop_for_special_object(self, name_object: str):
+        self.drawer.clear_image_dop()
+        if name_object == "Директор":
+            self.drawer.set_image_dop(CharacterIMG.DIRECTOR.src)
+        elif name_object == "Начальное общее образование":
+            self.drawer.set_image_dop(CharacterIMG.BEGIN_CLASS.src)
+        elif name_object == "Основное общее образование":
+            self.drawer.set_image_dop(CharacterIMG.MAIN_CLASS.src)
+        elif name_object == "Среднее общее образование":
+            self.drawer.set_image_dop(CharacterIMG.MIDDLE_CLASS.src)
+        elif name_object == "Адрес":
+            self.drawer.set_image_dop(CharacterIMG.PHOTO.src)
+
     def parse_text_input_user(self, text: str):
         if text == "/start":
             self.start()
@@ -117,6 +130,7 @@ class LogicUI:
                 return
             name_variant = self.variants[int(text) - 1] if text.isnumeric() else text.capitalize()
             self.select_variant(name_variant)
+            self.paste_image_dop_for_special_object(name_variant)
             return
 
         if text == "/back":
@@ -201,14 +215,19 @@ class LogicUI:
 
 
 class CharacterIMG(Enum):
-    WELCOME = "face2.png"                   # Приветственное лицо
-    DEFAULT = "face1.png"                   # Стандартное лицо
-    ANSWER = "face3.png"                    # Лицо для конечных ответов
-    THING = "face2.png"                     # Думающее лицо
-    QUITE = "face4.png"                     # Лицо для ошибок
-    ICON = "icon.png"                       # Иконка .png
-    ICON_ISO = "icon.ico"                   # Иконка .icon
-    ANIMATION_FACE = "animation_face.gif"   # GIF лицо помощи (/help)
+    WELCOME = "face2.png"  # Приветственное лицо
+    DEFAULT = "face1.png"  # Стандартное лицо
+    ANSWER = "face3.png"  # Лицо для конечных ответов
+    THING = "face2.png"  # Думающее лицо
+    QUITE = "face4.png"  # Лицо для ошибок
+    ICON = "icon.png"  # Иконка .png
+    ICON_ISO = "icon.ico"  # Иконка .icon
+    ANIMATION_FACE = "animation_face.gif"  # GIF лицо помощи (/help)
+    DIRECTOR = "director.png"  # Директор
+    BEGIN_CLASS = "1_4.png"  # Начальные классы
+    MAIN_CLASS = "5_9.png"  # Основные классы
+    MIDDLE_CLASS = "10_11.png"  # Среднее классы
+    PHOTO = "photo.png"  # Фото школы
 
     def __init__(self, filename):
         self.filename = filename

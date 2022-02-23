@@ -14,7 +14,9 @@ created 19/02/22
 class Application:
     def __init__(self):
         self.photo = None
+        self.photo_dop = None
         self.image_c = None
+        self.image_c_dop = None
         self.show_gif_animation = False
         self.root = Tk()
         self.root.title('Бот секретарь школы №15 С УИОП г. Электросталь')
@@ -46,6 +48,9 @@ class Application:
         # Картинка для персонажа
         self.canvas = Canvas(self.info_frame, height=120, width=100, bg='#0E1621', borderwidth=0, highlightthickness=0)
         self.canvas.pack(side=LEFT, anchor=NW, pady=(0, 0), padx=(5, 10))
+
+        self.canvas_dop = Canvas(self.info_frame, height=120, width=100, bg='red', borderwidth=0, highlightthickness=0)
+        self.canvas_dop.pack(side=LEFT, anchor=NW, pady=(0, 0), padx=(5, 10))
 
         self.ent_name = Entry(self.input_frame, font=22, width=68, bg='#17212B', fg='#fff', insertbackground='#fff',
                               bd=0)
@@ -167,6 +172,16 @@ class Application:
         self.photo = ImageTk.PhotoImage(image)
         self.canvas.delete("all")
         self.image_c = self.canvas.create_image(50, 55, anchor='center', image=self.photo)
+
+    def set_image_dop(self, image_src: str):
+        image = Image.open(image_src)
+        image = image.resize((90, 90), Image.ANTIALIAS)
+        self.photo_dop = ImageTk.PhotoImage(image)
+        self.canvas_dop.delete("all")
+        self.image_c_dop = self.canvas_dop.create_image(50, 55, anchor='center', image=self.photo_dop)
+
+    def clear_image_dop(self):
+        self.canvas_dop.delete("all")
 
     def set_image_gif(self, gif_src: str):
         # Замена картинки персонажа на gif
