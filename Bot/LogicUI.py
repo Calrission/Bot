@@ -119,7 +119,7 @@ class LogicUI:
             self.start()
             return
 
-        if (text.isnumeric() or text.capitalize() in self.variants) and \
+        if (text.isnumeric() or text.lower() in self.variants) and \
                 type(self.variants) == list and len(self.variants) > 0:
             if text.isnumeric() and (0 >= int(text) or int(text) > len(self.variants)):
                 self.drawer.set_text_output("Такого пункта в списке вариантов нет !")
@@ -195,7 +195,7 @@ class CharacterIMG(Enum):
     DIRECTOR = "director.png"  # Директор
     BEGIN_CLASS = "1_4.png"  # Начальные классы
     MAIN_CLASS = "5_9.png"  # Основные классы
-    MIDDLE_CLASS = "10_11.png"  # Среднее классы
+    MIDDLE_CLASS = "10_11.png"  # Средние классы
     PHOTO = "photo.png"  # Фото школы
 
     def __init__(self, filename):
