@@ -1,7 +1,6 @@
 from enum import Enum
 from BotLogicModule.BotLogic import Logic
 from BotUIDrawer.main import Application
-# from BotVoiceModule.BotVoiceReader import VoiceReader
 import pathlib
 import Levenshtein
 from pathlib import Path
@@ -16,16 +15,13 @@ created 19/02/22
 class LogicUI:
     def __init__(self, logic: Logic, drawer: Application):
         self.commands = ["/start", "/welcome", "/back", "/help",
-                         "/variants", "/clear", "/voice"]
+                         "/variants", "/clear"]
         self.logic = logic  # Модуль логики бота
         self.drawer = drawer  # Модуль отрисовки окна
-        # self.voice = VoiceReader()  # Модуль голосового ввода
-        self.voice = None
         self.variants = []  # Все варианты переходов по пирамиде
         self.welcome()  # При старте программы приветственный текст
         # Установка кликов на кнопки
         self.drawer.set_click_button_search(self.click_button_search)
-        self.drawer.set_click_button_voice(self.click_button_voice)
 
     def welcome(self):
         """Показ приветственного текста с заменой персонажа и сброс всех кнопок к начальному состоянию"""
@@ -53,8 +49,7 @@ class LogicUI:
                     "/variants (/варианты) - показывает варианты перехода по пирамиде\n" \
                     "/back (/назад) - возвращает назад по пирамиде\n" \
                     "/clear (/очистка) - очищает поле вывода\n" \
-                    "/welcome - показывает приветственный текст\n" \
-                    "/voice - переключение режима голосового ввода\n\n" \
+                    "/welcome - показывает приветственный текст\n\n" \
                     "В скобках указана команды для голосового ввода (они начинаются со слова 'слэш' + " \
                     "русифицированное название команды)"
         self.drawer.set_new_text_output(help_text)
@@ -155,11 +150,6 @@ class LogicUI:
             self.variants_()
             return
 
-        if text == "/voice":
-            # Имитация нажатия на кнопку голосового ввода
-            self.click_button_voice(None)
-            return
-
         # Список похожих слов/предложений
         near_words = self.near_words(text, (self.variants if type(self.variants) == list else []) + self.commands)
         if len(near_words) == 0:
@@ -188,32 +178,6 @@ class LogicUI:
         return [i[0] for i in list(filter(lambda x: 0 <= x[1] <= 3,
                                           [(v_word, Levenshtein.distance(word, v_word)) for v_word in
                                            variants_words]))]
-
-    def parse_voice_text(self, text: str):
-        commands_rus_end = {"/старт": "/start", "/очистка": "/clear", "/варианты": "/variants", "/назад": "/back",
-                            "/помощь": "/help"}
-        if "слэш" in text:
-            text = text.replace("слэш ", "/") if "слэш " in text else text.replace("слэш", "/")
-            if text in commands_rus_end:
-                text = text.replace(text, commands_rus_end[text])
-        if text == "хватит":
-            self.click_button_voice(None)
-        elif text != "":
-            self.drawer.set_new_text_user_input(text)
-
-    def click_button_voice(self, _):
-        self.voice_()
-
-    def voice_(self):
-        if self.voice is not None:
-            if not self.voice.is_record:
-                self.drawer.set_text_output("Голосовой ввод включен, скажите 'хватит' для отключения")
-                self.voice.start(self.parse_voice_text)
-            else:
-                self.drawer.set_text_output("Голосовой ввод выключен")
-                self.voice.stop()
-        else:
-            self.drawer.set_text_output("Голосовой модуль отключен")
 
     def run_app(self):
         self.drawer.run_app()
