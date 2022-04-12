@@ -1,7 +1,7 @@
 from enum import Enum
 from BotLogicModule.BotLogic import Logic
 from BotUIDrawer.main import Application
-from BotVoiceModule.BotVoiceReader import VoiceReader
+# from BotVoiceModule.BotVoiceReader import VoiceReader
 import pathlib
 import Levenshtein
 from pathlib import Path
@@ -19,7 +19,8 @@ class LogicUI:
                          "/variants", "/clear", "/voice"]
         self.logic = logic  # Модуль логики бота
         self.drawer = drawer  # Модуль отрисовки окна
-        self.voice = VoiceReader()  # Модуль голосового ввода
+        # self.voice = VoiceReader()  # Модуль голосового ввода
+        self.voice = None
         self.variants = []  # Все варианты переходов по пирамиде
         self.welcome()  # При старте программы приветственный текст
         # Установка кликов на кнопки
@@ -175,7 +176,7 @@ class LogicUI:
         self.parse_text_input_user(text)
 
     @staticmethod
-    def near_words(word: str, variants_words: list[str]) -> list[str]:
+    def near_words(word: str, variants_words: list) -> list:
         """
         Метод определяет похожие слова от исходного из списка слов. Похожие слова от исходного - это слова, которым
         нужно 0-3 изменений что-бы стать исходным. Используется алгоритм Левенштейна из соответствующий библиотеки.
@@ -204,12 +205,15 @@ class LogicUI:
         self.voice_()
 
     def voice_(self):
-        if not self.voice.is_record:
-            self.drawer.set_text_output("Голосовой ввод включен, скажите 'хватит' для отключения")
-            self.voice.start(self.parse_voice_text)
+        if self.voice is not None:
+            if not self.voice.is_record:
+                self.drawer.set_text_output("Голосовой ввод включен, скажите 'хватит' для отключения")
+                self.voice.start(self.parse_voice_text)
+            else:
+                self.drawer.set_text_output("Голосовой ввод выключен")
+                self.voice.stop()
         else:
-            self.drawer.set_text_output("Голосовой ввод выключен")
-            self.voice.stop()
+            self.drawer.set_text_output("Голосовой модуль отключен")
 
     def run_app(self):
         self.drawer.run_app()

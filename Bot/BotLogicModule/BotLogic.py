@@ -13,7 +13,7 @@ class Logic:
         self.data: dict = ParseJSONData().decode_local_json()
         self.path_indexes_data: list = []
 
-    def get_object_from_path(self, path: list) -> dict | str:
+    def get_object_from_path(self, path: list):
         """
         :return: объект находящийся по этому пути (dict или str)
 
@@ -24,7 +24,7 @@ class Logic:
             now_object = now_object[list(now_object.keys())[index]]
         return now_object
 
-    def get_variants_now_level(self) -> list | str:
+    def get_variants_now_level(self):
         """
         :return: список всех подобъектов текущего объекта (если dict) или его значение (если str)
         """
@@ -35,7 +35,7 @@ class Logic:
             now_object: str
             return now_object
 
-    def choose_object_now_level(self, name_object: str) -> list | str:
+    def choose_object_now_level(self, name_object: str):
         """
         Перейди к этому объекту (изменив путь выбранного объекта)
 
@@ -47,7 +47,7 @@ class Logic:
         self.path_indexes_data.append(index_variant)
         return self.get_variants_now_level()
 
-    def back_level(self) -> list | str:
+    def back_level(self):
         """
         Перейди к предпоследнему объекту в пути (изменив сам путь выбранного объекта)
 

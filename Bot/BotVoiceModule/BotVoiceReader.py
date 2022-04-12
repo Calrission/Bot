@@ -1,7 +1,7 @@
 from vosk import Model, KaldiRecognizer
 import pathlib
 from pathlib import Path
-import pyaudio
+# import pyaudio
 import time
 from functools import wraps
 
@@ -11,7 +11,7 @@ class VoiceReader:
         self.path = str(Path(pathlib.Path.cwd(), "BotVoiceModule", "models", "vosk-model-small-ru-0.22"))
         self.model = Model(self.path)
         self.rec = KaldiRecognizer(self.model, 16000)
-        self.p = pyaudio.PyAudio()
+        # self.p = pyaudio.PyAudio()
         self.history = []
         self.stream = None
         self.is_record = False
@@ -33,7 +33,7 @@ class VoiceReader:
     @mult_threading
     def start(self, func):
         self.stream = self.p.open(
-            format=pyaudio.paInt16,
+            # format=pyaudio.paInt16,
             channels=1,
             rate=16000,
             input=True,
